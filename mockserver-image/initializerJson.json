@@ -1,0 +1,1313 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "gateway-nfe",
+        "enderecoIp": "10.0.0.15",
+        "ativo": true,
+        "contextPath": "/nfe",
+        "gitlabId": 12345,
+        "tags": [
+          "fiscal",
+          "nfe"
+        ],
+        "porta": "8443",
+        "tentativasRetentativa": 3,
+        "host": "gateway-nfe.sefaz.local",
+        "descricao": "Gateway responsável pelas rotas de NFe",
+        "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+        "urlExterna": "https://api.sefaz.gov.br/nfe",
+        "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+        "rateLimit": 1000,
+        "backends": [
+          {
+            "id": 1,
+            "descricao": "Backend Sefaz Consulta NFe",
+            "status": "UP",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PUT",
+      "path": "/v1/gateways/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "gateway-nfe",
+        "enderecoIp": "10.0.0.15",
+        "ativo": true,
+        "contextPath": "/nfe",
+        "gitlabId": 12345,
+        "tags": [
+          "fiscal",
+          "nfe"
+        ],
+        "porta": "8443",
+        "tentativasRetentativa": 3,
+        "host": "gateway-nfe.sefaz.local",
+        "descricao": "Gateway responsável pelas rotas de NFe",
+        "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+        "urlExterna": "https://api.sefaz.gov.br/nfe",
+        "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+        "rateLimit": 1000,
+        "backends": [
+          {
+            "id": 1,
+            "descricao": "Backend Sefaz Consulta NFe",
+            "status": "UP",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "DELETE",
+      "path": "/v1/gateways/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": [
+        {
+          "id": 1,
+          "nome": "gateway-nfe",
+          "enderecoIp": "10.0.0.15",
+          "ativo": true,
+          "contextPath": "/nfe",
+          "gitlabId": 12345,
+          "tags": [
+            "fiscal",
+            "nfe"
+          ],
+          "porta": "8443",
+          "tentativasRetentativa": 3,
+          "host": "gateway-nfe.sefaz.local",
+          "descricao": "Gateway responsável pelas rotas de NFe",
+          "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+          "urlExterna": "https://api.sefaz.gov.br/nfe",
+          "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+          "rateLimit": 1000,
+          "backends": [
+            {
+              "id": 1,
+              "descricao": "Backend Sefaz Consulta NFe",
+              "status": "UP",
+              "baseUrl": "http://backend-nfe.sefaz.local:8081"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "nome": "gateway-icms",
+          "enderecoIp": "10.0.0.15",
+          "ativo": true,
+          "contextPath": "/icms",
+          "gitlabId": 12345,
+          "tags": [
+            "fiscal",
+            "nfe"
+          ],
+          "porta": "8443",
+          "tentativasRetentativa": 3,
+          "host": "gateway-nfe.sefaz.local",
+          "descricao": "Gateway responsável pelas rotas de NFe",
+          "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+          "urlExterna": "https://api.sefaz.gov.br/nfe",
+          "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+          "rateLimit": 1000,
+          "backends": [
+            {
+              "id": 1,
+              "descricao": "Backend Sefaz Consulta NFe",
+              "status": "UP",
+              "baseUrl": "http://backend-nfe.sefaz.local:8081"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/gateways"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "gateway-nfe",
+        "enderecoIp": "10.0.0.15",
+        "ativo": true,
+        "contextPath": "/nfe",
+        "gitlabId": 12345,
+        "tags": [
+          "fiscal",
+          "nfe"
+        ],
+        "porta": "8443",
+        "tentativasRetentativa": 3,
+        "host": "gateway-nfe.sefaz.local",
+        "descricao": "Gateway responsável pelas rotas de NFe",
+        "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+        "urlExterna": "https://api.sefaz.gov.br/nfe",
+        "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+        "rateLimit": 1000,
+        "backends": [
+          {
+            "id": 1,
+            "descricao": "Backend Sefaz Consulta NFe",
+            "status": "UP",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PATCH",
+      "path": "/v1/gateways/[0-9]+/desativar"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "gateway-nfe",
+        "enderecoIp": "10.0.0.15",
+        "ativo": false,
+        "contextPath": "/nfe",
+        "gitlabId": 12345,
+        "tags": [
+          "fiscal",
+          "nfe"
+        ],
+        "porta": "8443",
+        "tentativasRetentativa": 3,
+        "host": "gateway-nfe.sefaz.local",
+        "descricao": "Gateway responsável pelas rotas de NFe",
+        "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+        "urlExterna": "https://api.sefaz.gov.br/nfe",
+        "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+        "rateLimit": 1000,
+        "backends": [
+          {
+            "id": 1,
+            "descricao": "Backend Sefaz Consulta NFe",
+            "status": "UP",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PATCH",
+      "path": "/v1/gateways/[0-9]+/ativar"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "gateway-nfe",
+        "enderecoIp": "10.0.0.15",
+        "ativo": true,
+        "contextPath": "/nfe",
+        "gitlabId": 12345,
+        "tags": [
+          "fiscal",
+          "nfe"
+        ],
+        "porta": "8443",
+        "tentativasRetentativa": 3,
+        "host": "gateway-nfe.sefaz.local",
+        "descricao": "Gateway responsável pelas rotas de NFe",
+        "urlMetricas": "http://gateway-nfe.sefaz.local:9090/metrics",
+        "urlExterna": "https://api.sefaz.gov.br/nfe",
+        "urlInterna": "http://gateway-nfe.sefaz.local:8443/nfe",
+        "rateLimit": 1000,
+        "backends": [
+          {
+            "id": 1,
+            "descricao": "Backend Sefaz Consulta NFe",
+            "status": "UP",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways/[0-9]+/versao"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "gatewayId": 1,
+        "nomeGateway": "gateway-nfe",
+        "versaoGitlab": "1.8.2"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways/[0-9]+/status"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "gatewayId": 1,
+        "nomeGateway": "gateway-nfe",
+        "ativo": true,
+        "statusAgregado": "UP",
+        "totalBackends": 1,
+        "totalUp": 1,
+        "totalDown": 0,
+        "totalUnknown": 0,
+        "backends": [
+          {
+            "backendId": 1,
+            "nome": "backend-nfe",
+            "ultimoStatus": "UP",
+            "dataUltimaVerificacao": "2026-09-23T10:00:00"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways/[0-9]+/pipelines"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": [
+        {
+          "id": 555111,
+          "iid": 42,
+          "projectId": 98765,
+          "status": "success",
+          "source": "push",
+          "ref": "main",
+          "sha": "a1b2c3d4e5f6",
+          "name": "pipeline-backend-nfe",
+          "webUrl": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe/-/pipelines/555111",
+          "createdAt": "2026-09-23T09:50:00Z",
+          "updatedAt": "2026-09-23T10:00:00Z"
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways/[0-9]+/pipeline/status"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 555111,
+        "iid": 42,
+        "projectId": 98765,
+        "status": "success",
+        "source": "push",
+        "ref": "main",
+        "sha": "a1b2c3d4e5f6",
+        "name": "pipeline-backend-nfe",
+        "webUrl": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe/-/pipelines/555111",
+        "createdAt": "2026-09-23T09:50:00Z",
+        "updatedAt": "2026-09-23T10:00:00Z"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/gateways/[0-9]+/endpoints/contagem"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "gatewayId": 1,
+        "nomeGateway": "gateway-nfe",
+        "totalBackends": 1,
+        "fonte": "swagger"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "descricao": "Backend de emissão de NFe",
+        "versao": "2.4.1",
+        "gitlabId": 98765,
+        "status": "UP",
+        "ultimoStatus": "UP",
+        "ambiente": "PRD",
+        "responsavel": "equipe-fiscal",
+        "baseUrl": "http://backend-nfe.sefaz.local:8081",
+        "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+        "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+        "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "apiNumero": "API-001",
+        "stack": [
+          "Java",
+          "Spring Boot"
+        ],
+        "techTags": [
+          "fiscal",
+          "nfe"
+        ],
+        "detalhesErro": null,
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "gatewayId": 1
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PUT",
+      "path": "/v1/backend/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "descricao": "Backend de emissão de NFe",
+        "versao": "2.4.1",
+        "gitlabId": 98765,
+        "status": "UP",
+        "ultimoStatus": "UP",
+        "ambiente": "PRD",
+        "responsavel": "equipe-fiscal",
+        "baseUrl": "http://backend-nfe.sefaz.local:8081",
+        "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+        "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+        "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "apiNumero": "API-001",
+        "stack": [
+          "Java",
+          "Spring Boot"
+        ],
+        "techTags": [
+          "fiscal",
+          "nfe"
+        ],
+        "detalhesErro": null,
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "gatewayId": 1
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "DELETE",
+      "path": "/v1/backend/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/backend/[0-9]+/verificar"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "ultimoStatus": "UP",
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "detalhesErro": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/backend/[0-9]+/runpipe"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 555111,
+        "iid": 42,
+        "projectId": 98765,
+        "status": "success",
+        "source": "push",
+        "ref": "main",
+        "sha": "a1b2c3d4e5f6",
+        "name": "pipeline-backend-nfe",
+        "webUrl": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe/-/pipelines/555111",
+        "createdAt": "2026-09-23T09:50:00Z",
+        "updatedAt": "2026-09-23T10:00:00Z"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "totalElements": 2,
+        "totalPages": 1,
+        "size": 20,
+        "content": [
+          {
+            "id": 1,
+            "nome": "backend-nfe",
+            "descricao": "Backend de emissão de NFe",
+            "versao": "2.4.1",
+            "gitlabId": 98765,
+            "status": "UP",
+            "ultimoStatus": "UP",
+            "ambiente": "PRD",
+            "responsavel": "equipe-fiscal",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081",
+            "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+            "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+            "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+            "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+            "apiNumero": "API-001",
+            "stack": [
+              "Java",
+              "Spring Boot"
+            ],
+            "techTags": [
+              "fiscal",
+              "nfe"
+            ],
+            "detalhesErro": null,
+            "dataUltimaVerificacao": "2026-09-23T10:00:00",
+            "gatewayId": 1
+          },
+          {
+            "id": 2,
+            "nome": "backend-icms",
+            "descricao": "Backend de emissão de NFe",
+            "versao": "2.4.1",
+            "gitlabId": 98765,
+            "status": "UP",
+            "ultimoStatus": "UP",
+            "ambiente": "PRD",
+            "responsavel": "equipe-fiscal",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081",
+            "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+            "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+            "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+            "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+            "apiNumero": "API-001",
+            "stack": [
+              "Java",
+              "Spring Boot"
+            ],
+            "techTags": [
+              "fiscal",
+              "nfe"
+            ],
+            "detalhesErro": null,
+            "dataUltimaVerificacao": "2026-09-23T10:00:00",
+            "gatewayId": 1
+          }
+        ],
+        "number": 0,
+        "sort": {
+          "empty": true,
+          "sorted": false,
+          "unsorted": true
+        },
+        "numberOfElements": 2,
+        "first": true,
+        "last": true,
+        "pageable": {
+          "offset": 0,
+          "sort": {
+            "empty": true,
+            "sorted": false,
+            "unsorted": true
+          },
+          "pageNumber": 0,
+          "pageSize": 20,
+          "unpaged": false,
+          "paged": true
+        },
+        "empty": false
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/backend"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "descricao": "Backend de emissão de NFe",
+        "versao": "2.4.1",
+        "gitlabId": 98765,
+        "status": "UP",
+        "ultimoStatus": "UP",
+        "ambiente": "PRD",
+        "responsavel": "equipe-fiscal",
+        "baseUrl": "http://backend-nfe.sefaz.local:8081",
+        "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+        "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+        "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "apiNumero": "API-001",
+        "stack": [
+          "Java",
+          "Spring Boot"
+        ],
+        "techTags": [
+          "fiscal",
+          "nfe"
+        ],
+        "detalhesErro": null,
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "gatewayId": 1
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+/versao/validar"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "backendId": 1,
+        "nomeBackend": "backend-nfe",
+        "versaoEntidade": "2.4.1",
+        "versaoGitlab": "2.4.1",
+        "versoesConcordam": true
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+/versao"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": "2.4.1"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+/statuspipe"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 555111,
+        "iid": 42,
+        "projectId": 98765,
+        "status": "success",
+        "source": "push",
+        "ref": "main",
+        "sha": "a1b2c3d4e5f6",
+        "name": "pipeline-backend-nfe",
+        "webUrl": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe/-/pipelines/555111",
+        "createdAt": "2026-09-23T09:50:00Z",
+        "updatedAt": "2026-09-23T10:00:00Z"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+/status"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "ultimoStatus": "UP",
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "detalhesErro": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+/db/status"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "backendId": 1,
+        "nomeBackend": "backend-nfe",
+        "urlConsultada": "http://backend-nfe.sefaz.local:8081/actuator/health/db",
+        "status": "UP",
+        "detalhes": "Conexão com banco de dados OK",
+        "dataConsulta": "2026-09-23T10:00:00"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backend/[0-9]+/apis/contagem"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "backendId": 1,
+        "nomeBackend": "backend-nfe",
+        "urlConsultada": "http://backend-nfe.sefaz.local:8081/v3/api-docs",
+        "totalEndpoints": 12,
+        "totalOperacoes": 18,
+        "fonte": "swagger"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "descricao": "Backend de emissão de NFe",
+        "versao": "2.4.1",
+        "gitlabId": 98765,
+        "status": "UP",
+        "ultimoStatus": "UP",
+        "ambiente": "PRD",
+        "responsavel": "equipe-fiscal",
+        "baseUrl": "http://backend-nfe.sefaz.local:8081",
+        "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+        "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+        "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "apiNumero": "API-001",
+        "stack": [
+          "Java",
+          "Spring Boot"
+        ],
+        "techTags": [
+          "fiscal",
+          "nfe"
+        ],
+        "detalhesErro": null,
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "gatewayId": 1
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "PUT",
+      "path": "/v1/backends/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "descricao": "Backend de emissão de NFe",
+        "versao": "2.4.1",
+        "gitlabId": 98765,
+        "status": "UP",
+        "ultimoStatus": "UP",
+        "ambiente": "PRD",
+        "responsavel": "equipe-fiscal",
+        "baseUrl": "http://backend-nfe.sefaz.local:8081",
+        "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+        "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+        "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "apiNumero": "API-001",
+        "stack": [
+          "Java",
+          "Spring Boot"
+        ],
+        "techTags": [
+          "fiscal",
+          "nfe"
+        ],
+        "detalhesErro": null,
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "gatewayId": 1
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "DELETE",
+      "path": "/v1/backends/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/backends/[0-9]+/verificar"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "ultimoStatus": "UP",
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "detalhesErro": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/backends/[0-9]+/runpipe"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 555111,
+        "iid": 42,
+        "projectId": 98765,
+        "status": "success",
+        "source": "push",
+        "ref": "main",
+        "sha": "a1b2c3d4e5f6",
+        "name": "pipeline-backend-nfe",
+        "webUrl": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe/-/pipelines/555111",
+        "createdAt": "2026-09-23T09:50:00Z",
+        "updatedAt": "2026-09-23T10:00:00Z"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "totalElements": 2,
+        "totalPages": 1,
+        "size": 20,
+        "content": [
+          {
+            "id": 1,
+            "nome": "backend-nfe",
+            "descricao": "Backend de emissão de NFe",
+            "versao": "2.4.1",
+            "gitlabId": 98765,
+            "status": "UP",
+            "ultimoStatus": "UP",
+            "ambiente": "PRD",
+            "responsavel": "equipe-fiscal",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081",
+            "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+            "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+            "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+            "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+            "apiNumero": "API-001",
+            "stack": [
+              "Java",
+              "Spring Boot"
+            ],
+            "techTags": [
+              "fiscal",
+              "nfe"
+            ],
+            "detalhesErro": null,
+            "dataUltimaVerificacao": "2026-09-23T10:00:00",
+            "gatewayId": 1
+          },
+          {
+            "id": 2,
+            "nome": "backend-icms",
+            "descricao": "Backend de emissão de NFe",
+            "versao": "2.4.1",
+            "gitlabId": 98765,
+            "status": "UP",
+            "ultimoStatus": "UP",
+            "ambiente": "PRD",
+            "responsavel": "equipe-fiscal",
+            "baseUrl": "http://backend-nfe.sefaz.local:8081",
+            "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+            "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+            "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+            "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+            "apiNumero": "API-001",
+            "stack": [
+              "Java",
+              "Spring Boot"
+            ],
+            "techTags": [
+              "fiscal",
+              "nfe"
+            ],
+            "detalhesErro": null,
+            "dataUltimaVerificacao": "2026-09-23T10:00:00",
+            "gatewayId": 1
+          }
+        ],
+        "number": 0,
+        "sort": {
+          "empty": true,
+          "sorted": false,
+          "unsorted": true
+        },
+        "numberOfElements": 2,
+        "first": true,
+        "last": true,
+        "pageable": {
+          "offset": 0,
+          "sort": {
+            "empty": true,
+            "sorted": false,
+            "unsorted": true
+          },
+          "pageNumber": 0,
+          "pageSize": 20,
+          "unpaged": false,
+          "paged": true
+        },
+        "empty": false
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/v1/backends"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "descricao": "Backend de emissão de NFe",
+        "versao": "2.4.1",
+        "gitlabId": 98765,
+        "status": "UP",
+        "ultimoStatus": "UP",
+        "ambiente": "PRD",
+        "responsavel": "equipe-fiscal",
+        "baseUrl": "http://backend-nfe.sefaz.local:8081",
+        "urlRepo": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe",
+        "urlDocumentacao": "https://docs.sefaz.gov.br/backend-nfe",
+        "urlLogs": "https://logs.sefaz.gov.br/backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "apiNumero": "API-001",
+        "stack": [
+          "Java",
+          "Spring Boot"
+        ],
+        "techTags": [
+          "fiscal",
+          "nfe"
+        ],
+        "detalhesErro": null,
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "gatewayId": 1
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+/versao/validar"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "backendId": 1,
+        "nomeBackend": "backend-nfe",
+        "versaoEntidade": "2.4.1",
+        "versaoGitlab": "2.4.1",
+        "versoesConcordam": true
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+/versao"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": "2.4.1"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+/statuspipe"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 555111,
+        "iid": 42,
+        "projectId": 98765,
+        "status": "success",
+        "source": "push",
+        "ref": "main",
+        "sha": "a1b2c3d4e5f6",
+        "name": "pipeline-backend-nfe",
+        "webUrl": "https://gitlab.sefaz.gov.br/fiscal/backend-nfe/-/pipelines/555111",
+        "createdAt": "2026-09-23T09:50:00Z",
+        "updatedAt": "2026-09-23T10:00:00Z"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+/status"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "id": 1,
+        "nome": "backend-nfe",
+        "urlHealthCheck": "http://backend-nfe.sefaz.local:8081/actuator/health",
+        "ultimoStatus": "UP",
+        "dataUltimaVerificacao": "2026-09-23T10:00:00",
+        "detalhesErro": null
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+/db/status"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "backendId": 1,
+        "nomeBackend": "backend-nfe",
+        "urlConsultada": "http://backend-nfe.sefaz.local:8081/actuator/health/db",
+        "status": "UP",
+        "detalhes": "Conexão com banco de dados OK",
+        "dataConsulta": "2026-09-23T10:00:00"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/backends/[0-9]+/apis/contagem"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": {
+        "backendId": 1,
+        "nomeBackend": "backend-nfe",
+        "urlConsultada": "http://backend-nfe.sefaz.local:8081/v3/api-docs",
+        "totalEndpoints": 12,
+        "totalOperacoes": 18,
+        "fonte": "swagger"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/auditoria/gateways/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": [
+        {
+          "campo": "status",
+          "valorAntigo": "DOWN",
+          "valorNovo": "UP",
+          "data": "2026-09-23T09:00:00",
+          "usuario": "sistema"
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/auditoria/backends/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": [
+        {
+          "campo": "status",
+          "valorAntigo": "DOWN",
+          "valorNovo": "UP",
+          "data": "2026-09-23T09:00:00",
+          "usuario": "sistema"
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/v1/auditoria/backend/[0-9]+"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": [
+        {
+          "campo": "status",
+          "valorAntigo": "DOWN",
+          "valorNovo": "UP",
+          "data": "2026-09-23T09:00:00",
+          "usuario": "sistema"
+        }
+      ]
+    }
+  }
+]

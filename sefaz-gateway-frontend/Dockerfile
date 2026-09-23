@@ -1,13 +1,6 @@
-# Stage 1: build
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npx ng build --configuration production
-
-# Stage 2: servir os arquivos estáticos gerados
-# Stage 1: build
+# ==========================================
+# STAGE 1 - BUILD ANGULAR
+# ==========================================
 FROM node:20-alpine AS build
 
 WORKDIR /app
@@ -20,7 +13,9 @@ COPY . .
 RUN npx ng build --configuration production
 
 
-# Stage 2: Nginx
+# ==========================================
+# STAGE 2 - NGINX
+# ==========================================
 FROM nginx:alpine
 
 COPY --from=build /app/dist/sefaz-gateway-frontend/browser /usr/share/nginx/html
