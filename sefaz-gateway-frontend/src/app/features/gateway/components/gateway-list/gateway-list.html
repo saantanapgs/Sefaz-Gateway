@@ -1,0 +1,56 @@
+<header class="cabecalho">
+  <h1>Gateways</h1>
+  <a routerLink="/gateways/novo" class="botao botao--primario">Novo gateway</a>
+</header>
+
+@if (carregando()) {
+  <p class="estado">Carregando gateways…</p>
+}
+
+@if (erro()) {
+  <p class="estado estado--erro">{{ erro() }}</p>
+}
+
+@if (!carregando() && !erro() && gateways().length === 0) {
+  <p class="estado">Nenhum gateway cadastrado ainda.</p>
+}
+
+@if (!carregando() && !erro() && gateways().length > 0) {
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Host</th>
+        <th>Porta</th>
+        <th>Context path</th>
+        <th>Tags</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (gateway of gateways(); track gateway.id) {
+        <tr>
+          <td>{{ gateway.nome }}</td>
+          <td>{{ gateway.host || '—' }}</td>
+          <td>{{ gateway.porta || '—' }}</td>
+          <td>{{ gateway.contextPath }}</td>
+          <td>{{ (gateway.tags ?? []).join(', ') || '—' }}</td>
+          <td>
+            <span class="badge" [class.badge--ativo]="gateway.ativo" [class.badge--inativo]="!gateway.ativo">
+              {{ gateway.ativo ? 'Ativo' : 'Inativo' }}
+            </span>
+          </td>
+          <td class="acoes">
+            <a [routerLink]="['/gateways', gateway.id]">Ver</a>
+            <a [routerLink]="['/gateways', gateway.id, 'editar']">Editar</a>
+            <button type="button" (click)="alternarAtivo(gateway)">
+              {{ gateway.ativo ? 'Desativar' : 'Ativar' }}
+            </button>
+            <button type="button" class="botao--perigo" (click)="excluir(gateway)">Excluir</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

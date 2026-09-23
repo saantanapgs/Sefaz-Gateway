@@ -1,0 +1,69 @@
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  th {
+    font-size: 0.8rem;
+    text-transform: none;
+    color: #555;
+  }
+}
+
+.acoes {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &--ativo {
+    background: #e3f7e9;
+    color: #1e7d3c;
+  }
+  &--inativo {
+    background: #ececec;
+    color: #5c5c5c;
+  }
+}
+
+.estado {
+  color: #555;
+  padding: 1rem 0;
+
+  &--erro {
+    color: #b3261e;
+  }
+}
+
+.botao {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+
+  &--primario {
+    background: #1a56db;
+    color: #fff;
+  }
+
+  &--perigo {
+    color: #b3261e;
+  }
+}

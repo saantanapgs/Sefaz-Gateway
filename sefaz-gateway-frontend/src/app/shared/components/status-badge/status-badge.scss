@@ -1,0 +1,26 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+
+  &--up {
+    background: #e3f7e9;
+    color: #1e7d3c;
+  }
+  &--down {
+    background: #fbe4e4;
+    color: #b3261e;
+  }
+  &--degraded {
+    background: #fdf1da;
+    color: #92600a;
+  }
+  &--unknown {
+    background: #ececec;
+    color: #5c5c5c;
+  }
+}

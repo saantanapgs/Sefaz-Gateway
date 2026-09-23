@@ -1,0 +1,110 @@
+<h1>{{ modoEdicao() ? 'Editar gateway' : 'Novo gateway' }}</h1>
+
+@if (carregando()) {
+  <p class="estado">Carregando dados do gateway…</p>
+}
+
+@if (erro()) {
+  <p class="estado estado--erro">{{ erro() }}</p>
+}
+
+@if (!carregando()) {
+  <form [formGroup]="form" (ngSubmit)="enviar()" class="formulario">
+    <label>
+      Nome *
+      <input type="text" formControlName="nome" />
+      @if (form.controls.nome.touched && form.controls.nome.invalid) {
+        <small class="erro-campo">Obrigatório, até 100 caracteres.</small>
+      }
+    </label>
+
+    <label>
+      Context path *
+      <input type="text" formControlName="contextPath" />
+      @if (form.controls.contextPath.touched && form.controls.contextPath.invalid) {
+        <small class="erro-campo">Obrigatório, até 150 caracteres.</small>
+      }
+    </label>
+
+    <label>
+      IDs dos backends vinculados (separados por vírgula) *
+      <input type="text" formControlName="backendIds" placeholder="1, 2, 3" />
+      @if (form.controls.backendIds.touched && form.controls.backendIds.invalid) {
+        <small class="erro-campo">Informe ao menos um ID de backend.</small>
+      }
+    </label>
+
+    <label>
+      Endereço IP
+      <input type="text" formControlName="enderecoIp" placeholder="192.168.0.1" />
+      @if (form.controls.enderecoIp.touched && form.controls.enderecoIp.invalid) {
+        <small class="erro-campo">Formato de IPv4 inválido.</small>
+      }
+    </label>
+
+    <label>
+      Host
+      <input type="text" formControlName="host" />
+    </label>
+
+    <label>
+      Porta (4 dígitos)
+      <input type="text" formControlName="porta" maxlength="4" />
+      @if (form.controls.porta.touched && form.controls.porta.invalid) {
+        <small class="erro-campo">Deve ter exatamente 4 caracteres.</small>
+      }
+    </label>
+
+    <label>
+      Descrição
+      <textarea formControlName="descricao" maxlength="255"></textarea>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" formControlName="ativo" />
+      Ativo
+    </label>
+
+    <label>
+      GitLab ID
+      <input type="number" formControlName="gitlabId" />
+    </label>
+
+    <label>
+      Tentativas de retentativa (0–10)
+      <input type="number" formControlName="tentativasRetentativa" min="0" max="10" />
+    </label>
+
+    <label>
+      Rate limit (1–10000)
+      <input type="number" formControlName="rateLimit" min="1" max="10000" />
+    </label>
+
+    <label>
+      Tags (separadas por vírgula)
+      <input type="text" formControlName="tags" placeholder="interno, homologacao" />
+    </label>
+
+    <label>
+      URL de métricas
+      <input type="text" formControlName="urlMetricas" />
+    </label>
+
+    <label>
+      URL externa
+      <input type="text" formControlName="urlExterna" />
+    </label>
+
+    <label>
+      URL interna
+      <input type="text" formControlName="urlInterna" />
+    </label>
+
+    <div class="acoes-formulario">
+      <button type="submit" [disabled]="enviando()">
+        {{ enviando() ? 'Salvando…' : 'Salvar' }}
+      </button>
+      <a routerLink="/gateways">Cancelar</a>
+    </div>
+  </form>
+}

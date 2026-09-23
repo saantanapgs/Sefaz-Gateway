@@ -1,0 +1,118 @@
+@if (carregando()) {
+  <p class="estado">Carregando gateway…</p>
+}
+
+@if (erro()) {
+  <p class="estado estado--erro">{{ erro() }}</p>
+}
+
+@if (gateway(); as g) {
+  <header class="cabecalho">
+    <h1>{{ g.nome }}</h1>
+    <div class="acoes">
+      <a [routerLink]="['/gateways', g.id, 'editar']">Editar</a>
+      <a routerLink="/gateways">Voltar</a>
+    </div>
+  </header>
+
+  <section class="secao">
+    <h2>Dados gerais</h2>
+    <dl class="lista-dados">
+      <dt>Host</dt><dd>{{ g.host || '—' }}</dd>
+      <dt>Porta</dt><dd>{{ g.porta || '—' }}</dd>
+      <dt>IP</dt><dd>{{ g.enderecoIp || '—' }}</dd>
+      <dt>Context path</dt><dd>{{ g.contextPath }}</dd>
+      <dt>Ativo</dt><dd>{{ g.ativo ? 'Sim' : 'Não' }}</dd>
+      <dt>Rate limit</dt><dd>{{ g.rateLimit ?? '—' }}</dd>
+      <dt>Tentativas de retentativa</dt><dd>{{ g.tentativasRetentativa ?? '—' }}</dd>
+      <dt>Tags</dt><dd>{{ (g.tags ?? []).join(', ') || '—' }}</dd>
+      <dt>Descrição</dt><dd>{{ g.descricao || '—' }}</dd>
+    </dl>
+  </section>
+
+  <section class="secao">
+    <h2>Backends vinculados</h2>
+    @if (g.backends.length === 0) {
+      <p class="estado">Nenhum backend vinculado.</p>
+    } @else {
+      <ul class="lista-simples">
+        @for (backend of g.backends; track backend.id) {
+          <li>
+            {{ backend.descricao || ('Backend #' + backend.id) }}
+            @if (backend.status) {
+              <app-status-badge [status]="backend.status" />
+            }
+          </li>
+        }
+      </ul>
+    }
+  </section>
+}
+
+<section class="secao">
+  <h2>Saúde agregada</h2>
+  @if (erroSaude()) {
+    <p class="estado estado--erro">{{ erroSaude() }}</p>
+  } @else if (saude(); as s) {
+    <p>
+      Status geral: <app-status-badge [status]="s.statusAgregado" />
+      — {{ s.totalUp }} up, {{ s.totalDown }} down, {{ s.totalUnknown }} desconhecido, de {{ s.totalBackends }} backends.
+    </p>
+  } @else {
+    <p class="estado">Carregando…</p>
+  }
+</section>
+
+<section class="secao">
+  <h2>Versão</h2>
+  @if (erroVersao()) {
+    <p class="estado estado--erro">{{ erroVersao() }}</p>
+  } @else if (versao(); as v) {
+    <p>{{ v.versaoGitlab }}</p>
+  } @else {
+    <p class="estado">Carregando…</p>
+  }
+</section>
+
+<section class="secao">
+  <h2>Pipelines</h2>
+  @if (erroPipelines()) {
+    <p class="estado estado--erro">{{ erroPipelines() }}</p>
+  } @else if (pipelines().length === 0) {
+    <p class="estado">Nenhum pipeline encontrado.</p>
+  } @else {
+    <ul class="lista-simples">
+      @for (p of pipelines(); track p.id) {
+        <li>#{{ p.iid }} — {{ p.status }} ({{ p.ref }})</li>
+      }
+    </ul>
+  }
+
+  <div class="consulta-pipeline">
+    <label>
+      Consultar status de um pipeline específico
+      <input type="number" #pipelineIdInput placeholder="ID do pipeline (opcional)" />
+    </label>
+    <button type="button" (click)="consultarStatusPipeline(pipelineIdInput.value ? +pipelineIdInput.value : null)">
+      Consultar
+    </button>
+
+    @if (erroStatusPipeline()) {
+      <p class="estado estado--erro">{{ erroStatusPipeline() }}</p>
+    }
+    @if (statusPipelineConsultado(); as sp) {
+      <p>Pipeline #{{ sp.iid }}: {{ sp.status }}</p>
+    }
+  </div>
+</section>
+
+<section class="secao">
+  <h2>Endpoints</h2>
+  @if (erroContagem()) {
+    <p class="estado estado--erro">{{ erroContagem() }}</p>
+  } @else if (contagemEndpoints(); as c) {
+    <p>{{ c.totalBackends }} backend(s) — fonte: {{ c.fonte }}</p>
+  } @else {
+    <p class="estado">Carregando…</p>
+  }
+</section>
