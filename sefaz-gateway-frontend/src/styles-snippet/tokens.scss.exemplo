@@ -1,0 +1,33 @@
+/*
+  SNIPPET — adicione este bloco de variáveis no INÍCIO do seu src/styles.scss
+  real (o arquivo global do projeto), sem apagar o que já existir nele.
+  Todos os componentes que eu criei já usam essas variáveis com fallback
+  (var(--cor, valor-padrão)), então funcionam mesmo se você esquecer de
+  colar isso — mas colando, a aparência fica consistente em todo o app.
+*/
+
+:root {
+  --color-primary: #2452ff;
+  --color-bg: #f5f6fa;
+  --color-surface: #ffffff;
+  --color-border: #e3e5ea;
+  --color-text: #1f2430;
+  --color-text-muted: #6b7280;
+  --color-sidebar-bg: #12151c;
+  --color-sidebar-text: #cbd2e1;
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}

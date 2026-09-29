@@ -7,6 +7,7 @@ import { GatewayVersion } from '../../models/gateway-version.model';
 import { GatewayEndpointCount } from '../../models/gateway-endpoint-count.model';
 import { GitLabPipeline } from '../../../../shared/models/gitlab-pipeline.model';
 import { StatusBadgeComponent } from '../../../../shared/components/status-badge/status-badge';
+import { GatewayAiService } from '../../services/gateway-ai';
 
 @Component({
   selector: 'app-gateway-details',
@@ -18,6 +19,11 @@ import { StatusBadgeComponent } from '../../../../shared/components/status-badge
 export class GatewayDetailsComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly gatewayService = inject(GatewayService);
+  private readonly gatewayAiService = inject(GatewayAiService);
+
+  // Preparação para a futura feature de IA (ver GatewayAiService) — hoje é
+  // só um resumo montado a partir dos dados já carregados, sem IA real.
+  readonly resumoIa = signal<string | null>(null);
 
   private readonly id = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -53,6 +59,7 @@ export class GatewayDetailsComponent {
       next: (dados) => {
         this.gateway.set(dados);
         this.carregando.set(false);
+        this.atualizarResumoIa();
       },
       error: () => {
         this.erro.set('Não foi possível carregar o gateway.');
@@ -63,9 +70,19 @@ export class GatewayDetailsComponent {
 
   private carregarSaude(): void {
     this.gatewayService.status(this.id).subscribe({
-      next: (dados) => this.saude.set(dados),
+      next: (dados) => {
+        this.saude.set(dados);
+        this.atualizarResumoIa();
+      },
       error: () => this.erroSaude.set('Status indisponível no momento.'),
     });
+  }
+
+  private atualizarResumoIa(): void {
+    const gateway = this.gateway();
+    if (!gateway) return;
+
+    this.gatewayAiService.resumir(gateway, this.saude()).subscribe((texto) => this.resumoIa.set(texto));
   }
 
   private carregarVersao(): void {

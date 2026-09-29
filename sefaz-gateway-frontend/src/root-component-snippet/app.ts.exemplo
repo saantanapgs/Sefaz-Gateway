@@ -1,0 +1,19 @@
+// EXEMPLO — não é pra copiar por cima do seu app.ts real.
+// É só pra mostrar como o componente raiz do projeto deve ficar depois
+// de plugar o app-shell (sidebar + header). Troque o template do SEU
+// componente raiz existente (o que tem o <router-outlet /> hoje) por isto:
+
+import { Component } from '@angular/core';
+import { AppShellComponent } from './app/core/layout/app-shell/app-shell';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [AppShellComponent],
+  template: `<app-shell />`,
+})
+export class App {}
+
+// O <router-outlet /> não fica mais direto no componente raiz — ele passou
+// a viver DENTRO do app-shell (ver app-shell.html). Por isso, se o seu
+// componente raiz tinha "RouterOutlet" nos imports, ele pode sair de lá.

@@ -7,6 +7,13 @@
 }
 
 @if (gateway(); as g) {
+  @if (resumoIa(); as resumo) {
+    <section class="resumo-ia">
+      <span class="resumo-ia__etiqueta">Resumo</span>
+      <p>{{ resumo }}</p>
+    </section>
+  }
+
   <header class="cabecalho">
     <h1>{{ g.nome }}</h1>
     <div class="acoes">

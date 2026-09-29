@@ -1,0 +1,648 @@
+:host {
+  --sefaz-blue-950: #071a3d;
+  --sefaz-blue-900: #0a2458;
+  --sefaz-blue-800: #0d347d;
+  --sefaz-blue-700: #1247a6;
+  --sefaz-blue-600: #1859c9;
+  --sefaz-blue-500: #2872e6;
+
+  --sefaz-red-700: #9f1729;
+  --sefaz-red-600: #bd1e36;
+  --sefaz-red-500: #d62d45;
+  --sefaz-red-100: #fdebed;
+
+  --color-primary: var(--sefaz-blue-700);
+  --color-primary-dark: var(--sefaz-blue-900);
+  --color-primary-soft: #edf4ff;
+
+  --color-success: #15803d;
+  --color-success-soft: #eaf8ef;
+
+  --color-warning: #b45309;
+  --color-warning-soft: #fff7e8;
+
+  --color-danger: var(--sefaz-red-600);
+  --color-danger-soft: var(--sefaz-red-100);
+
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f9fc;
+  --color-border: #e4e9f1;
+  --color-border-light: #eef1f5;
+
+  --color-text: #172033;
+  --color-text-secondary: #4b5568;
+  --color-text-muted: #7b8494;
+
+  --radius: 12px;
+
+  display: block;
+}
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+h1 {
+  position: relative;
+
+  margin: 0 0 1.75rem;
+
+  color: var(--color-text);
+
+  font-size: clamp(1.45rem, 2vw, 1.85rem);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+
+  &::after {
+    content: '';
+
+    display: block;
+
+    width: 42px;
+    height: 4px;
+
+    margin-top: 0.7rem;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+      90deg,
+      var(--sefaz-blue-700),
+      var(--sefaz-red-600)
+    );
+  }
+}
+
+/* =========================================================
+   ESTADO DE CARREGAMENTO
+   ========================================================= */
+
+.estado {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+
+  min-height: 100px;
+  padding: 1.25rem 1.5rem;
+
+  color: var(--color-text-muted);
+
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+
+  box-shadow: 0 4px 16px rgba(7, 26, 61, 0.04);
+
+  font-size: 0.9rem;
+
+  &::before {
+    content: '';
+
+    width: 18px;
+    height: 18px;
+
+    flex: 0 0 18px;
+
+    border: 2px solid #dbe5f5;
+    border-top-color: var(--sefaz-blue-600);
+
+    border-radius: 50%;
+
+    animation: dashboard-spin 0.8s linear infinite;
+  }
+}
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.indicadores {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 1rem;
+
+  margin-bottom: 1.75rem;
+}
+
+/*
+ * Os stat-cards existentes continuam sendo usados.
+ * Estes estilos criam uma camada visual sobre os componentes
+ * sem exigir alteração no HTML da dashboard.
+ */
+
+.indicadores > * {
+  position: relative;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border-radius: var(--radius);
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+
+  &:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+      0 12px 30px rgba(7, 26, 61, 0.09),
+      0 2px 8px rgba(7, 26, 61, 0.05);
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+
+    right: -25px;
+    bottom: -35px;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: rgba(18, 71, 166, 0.04);
+
+    pointer-events: none;
+  }
+}
+
+/* =========================================================
+   SEÇÃO DA TABELA
+   ========================================================= */
+
+.tabela-secao {
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fcfdff 100%
+    );
+
+  border: 1px solid var(--color-border);
+
+  border-radius: 14px;
+
+  padding: 0;
+
+  box-shadow:
+    0 5px 20px rgba(7, 26, 61, 0.045),
+    0 1px 3px rgba(7, 26, 61, 0.025);
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+
+  &:hover {
+    border-color: #d7e0ed;
+
+    box-shadow:
+      0 10px 28px rgba(7, 26, 61, 0.06),
+      0 2px 5px rgba(7, 26, 61, 0.03);
+  }
+
+  /* Linha institucional superior */
+  &::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: linear-gradient(
+      90deg,
+      var(--sefaz-blue-800) 0%,
+      var(--sefaz-blue-600) 72%,
+      var(--sefaz-red-600) 100%
+    );
+  }
+
+  &__cabecalho {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    min-height: 72px;
+
+    margin: 0;
+
+    padding: 1rem 1.35rem;
+
+    border-bottom: 1px solid var(--color-border-light);
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(247, 249, 252, 0.9),
+        rgba(255, 255, 255, 0.95)
+      );
+
+    h2 {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+
+      margin: 0;
+
+      color: var(--color-text);
+
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+
+      &::before {
+        content: '';
+
+        display: block;
+
+        width: 5px;
+        height: 22px;
+
+        border-radius: 999px;
+
+        background: linear-gradient(
+          180deg,
+          var(--sefaz-blue-600),
+          var(--sefaz-blue-800)
+        );
+      }
+    }
+  }
+}
+
+/* =========================================================
+   LINK "VER TODOS"
+   ========================================================= */
+
+.link {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0.5rem 0.75rem;
+
+  color: var(--sefaz-blue-700);
+
+  border: 1px solid transparent;
+  border-radius: 7px;
+
+  font-size: 0.82rem;
+  font-weight: 650;
+
+  text-decoration: none;
+
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+
+  &::after {
+    content: '→';
+
+    font-size: 1rem;
+
+    transition: transform 160ms ease;
+  }
+
+  &:hover {
+    color: var(--sefaz-blue-900);
+
+    background: var(--color-primary-soft);
+
+    border-color: #dce8fb;
+
+    &::after {
+      transform: translateX(3px);
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(40, 114, 230, 0.2);
+    outline-offset: 2px;
+  }
+}
+
+/* =========================================================
+   TABELA
+   ========================================================= */
+
+.tabela {
+  width: 100%;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  background: transparent;
+
+  th,
+  td {
+    text-align: left;
+
+    padding: 0.9rem 1.35rem;
+
+    border-bottom: 1px solid var(--color-border-light);
+
+    font-size: 0.86rem;
+
+    vertical-align: middle;
+  }
+
+  th {
+    color: #707b8d;
+
+    background: #fafbfd;
+
+    font-size: 0.72rem;
+    font-weight: 750;
+
+    letter-spacing: 0.055em;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+  }
+
+  tbody {
+    tr {
+      position: relative;
+
+      background: #fff;
+
+      transition:
+        background-color 140ms ease,
+        box-shadow 140ms ease;
+
+      &:last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+
+      &:hover {
+        background:
+          linear-gradient(
+            90deg,
+            rgba(237, 244, 255, 0.7),
+            rgba(255, 255, 255, 0.95)
+          );
+
+        td:first-child {
+          color: var(--sefaz-blue-800);
+        }
+      }
+    }
+
+    td {
+      color: var(--color-text-secondary);
+
+      &:first-child {
+        color: var(--color-text);
+
+        font-weight: 650;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+}
+
+/* =========================================================
+   STATUS ATIVO / INATIVO
+   ========================================================= */
+
+.badge {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 0.4rem;
+
+  min-width: 70px;
+
+  padding: 0.32rem 0.65rem;
+
+  border: 1px solid transparent;
+
+  border-radius: 999px;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  &::before {
+    content: '';
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    flex: 0 0 6px;
+  }
+
+  &--ativo {
+    color: #166534;
+
+    background: var(--color-success-soft);
+
+    border-color: #ccebd7;
+
+    &::before {
+      background: #22a05a;
+
+      box-shadow: 0 0 0 3px rgba(34, 160, 90, 0.1);
+    }
+  }
+
+  &--inativo {
+    color: #667085;
+
+    background: #f2f4f7;
+
+    border-color: #e4e7ec;
+
+    &::before {
+      background: #98a2b3;
+    }
+  }
+}
+
+/* =========================================================
+   BACKENDS
+   ========================================================= */
+
+.backends-mini {
+  display: flex;
+
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 0.35rem;
+
+  min-height: 26px;
+
+  /*
+   * Mantém os badges existentes compactos.
+   */
+  :global(app-status-badge) {
+    display: inline-flex;
+  }
+}
+
+.sem-dado {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 24px;
+  min-height: 24px;
+
+  color: #a0a8b5;
+
+  background: #f6f7f9;
+
+  border-radius: 5px;
+
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+app-empty-state {
+  display: block;
+
+  padding: 2.5rem 1.5rem;
+}
+
+/* =========================================================
+   ERROR STATE
+   ========================================================= */
+
+app-error-state {
+  display: block;
+
+  margin-bottom: 1.5rem;
+}
+
+/* =========================================================
+   RESPONSIVIDADE — TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tabela-secao {
+    overflow-x: auto;
+
+    &__cabecalho {
+      min-width: 650px;
+    }
+  }
+
+  .tabela {
+    min-width: 720px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVIDADE — MOBILE
+   ========================================================= */
+
+@media (max-width: 680px) {
+  h1 {
+    margin-bottom: 1.25rem;
+
+    font-size: 1.35rem;
+  }
+
+  .indicadores {
+    grid-template-columns: 1fr;
+
+    gap: 0.75rem;
+
+    margin-bottom: 1.25rem;
+  }
+
+  .tabela-secao {
+    border-radius: 10px;
+
+    &__cabecalho {
+      min-height: 64px;
+
+      padding: 0.85rem 1rem;
+
+      h2 {
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .link {
+    padding: 0.4rem 0.55rem;
+
+    font-size: 0.76rem;
+  }
+
+  .tabela {
+    th,
+    td {
+      padding: 0.75rem 1rem;
+    }
+  }
+}
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes dashboard-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}

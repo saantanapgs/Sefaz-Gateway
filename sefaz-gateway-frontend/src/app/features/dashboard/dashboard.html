@@ -1,0 +1,70 @@
+<h1>Visão geral</h1>
+
+@if (carregando()) {
+  <p class="estado">Carregando…</p>
+}
+
+@if (erro()) {
+  <app-error-state [mensagem]="erro()!" (tentarNovamente)="carregar()" />
+}
+
+@if (!carregando() && !erro()) {
+  <section class="indicadores">
+    <app-stat-card rotulo="Total de gateways" [valor]="total()" />
+    <app-stat-card rotulo="Ativos" [valor]="ativos()" variante="sucesso" />
+    <app-stat-card rotulo="Inativos" [valor]="inativos()" />
+    <app-stat-card rotulo="Com problemas" [valor]="comProblemas()" variante="perigo" />
+  </section>
+
+  <section class="tabela-secao">
+    <div class="tabela-secao__cabecalho">
+      <h2>Gateways</h2>
+      <a routerLink="/gateways" class="link">Ver todos</a>
+    </div>
+
+    @if (gateways().length === 0) {
+      <app-empty-state mensagem="Nenhum gateway cadastrado ainda." />
+    } @else {
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Host</th>
+            <th>Status</th>
+            <th>Backends</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (gateway of gateways(); track gateway.id) {
+            <tr>
+              <td>{{ gateway.nome }}</td>
+              <td>{{ gateway.host || '—' }}</td>
+              <td>
+                <span class="badge" [class.badge--ativo]="gateway.ativo" [class.badge--inativo]="!gateway.ativo">
+                  {{ gateway.ativo ? 'Ativo' : 'Inativo' }}
+                </span>
+              </td>
+              <td>
+                @if ((gateway.backends ?? []).length === 0) {
+                  <span class="sem-dado">—</span>
+                } @else {
+                  <div class="backends-mini">
+                    @for (backend of gateway.backends; track backend.id) {
+                      @if (backend.status) {
+                        <app-status-badge [status]="backend.status" />
+                      }
+                    }
+                  </div>
+                }
+              </td>
+              <td>
+                <a [routerLink]="['/gateways', gateway.id]">Ver detalhes</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+}

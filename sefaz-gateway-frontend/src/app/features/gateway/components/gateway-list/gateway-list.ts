@@ -1,12 +1,17 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GatewayService } from '../../services/gateway';
 import { Gateway } from '../../models/gateway.model';
+import { ErrorStateComponent } from '../../../../shared/components/error-state/error-state';
+import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state';
+import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog';
+
+type FiltroStatus = 'todos' | 'ativos' | 'inativos';
 
 @Component({
   selector: 'app-gateway-list',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ErrorStateComponent, EmptyStateComponent, ConfirmDialogComponent],
   templateUrl: './gateway-list.html',
   styleUrl: './gateway-list.scss',
 })
@@ -16,6 +21,22 @@ export class GatewayListComponent {
   readonly gateways = signal<Gateway[]>([]);
   readonly carregando = signal(false);
   readonly erro = signal<string | null>(null);
+
+  readonly termoBusca = signal('');
+  readonly filtroStatus = signal<FiltroStatus>('todos');
+
+  readonly gatewayParaExcluir = signal<Gateway | null>(null);
+
+  readonly gatewaysFiltrados = computed(() => {
+    const termo = this.termoBusca().trim().toLowerCase();
+    const filtro = this.filtroStatus();
+
+    return this.gateways().filter((g) => {
+      const passaBusca = termo.length === 0 || g.nome.toLowerCase().includes(termo);
+      const passaStatus = filtro === 'todos' || (filtro === 'ativos' ? g.ativo : !g.ativo);
+      return passaBusca && passaStatus;
+    });
+  });
 
   constructor() {
     this.carregar();
@@ -27,21 +48,13 @@ export class GatewayListComponent {
 
     this.gatewayService.listar().subscribe({
       next: (dados) => {
-  console.log('GATEWAYS RECEBIDOS PELO COMPONENTE:', dados);
-  console.log('QUANTIDADE:', dados.length);
-
-  this.gateways.set(dados);
-  this.carregando.set(false);
-},
-      error: (erro) => {
-  console.error('ERRO AO CARREGAR GATEWAYS:', erro);
-
-  this.erro.set(
-    'Não foi possível carregar os gateways. Verifique se o Mock Server está acessível.'
-  );
-
-  this.carregando.set(false);
-},
+        this.gateways.set(dados);
+        this.carregando.set(false);
+      },
+      error: () => {
+        this.erro.set('Não foi possível carregar os gateways. Verifique se o Mock Server está acessível.');
+        this.carregando.set(false);
+      },
     });
   }
 
@@ -58,13 +71,27 @@ export class GatewayListComponent {
     });
   }
 
-  excluir(gateway: Gateway): void {
-    const confirmado = confirm(`Excluir o gateway "${gateway.nome}"? Essa ação não pode ser desfeita.`);
-    if (!confirmado) return;
+  pedirConfirmacaoExclusao(gateway: Gateway): void {
+    this.gatewayParaExcluir.set(gateway);
+  }
+
+  cancelarExclusao(): void {
+    this.gatewayParaExcluir.set(null);
+  }
+
+  confirmarExclusao(): void {
+    const gateway = this.gatewayParaExcluir();
+    if (!gateway) return;
 
     this.gatewayService.deletar(gateway.id).subscribe({
-      next: () => this.gateways.update((lista) => lista.filter((g) => g.id !== gateway.id)),
-      error: () => this.erro.set(`Não foi possível excluir o gateway "${gateway.nome}".`),
+      next: () => {
+        this.gateways.update((lista) => lista.filter((g) => g.id !== gateway.id));
+        this.gatewayParaExcluir.set(null);
+      },
+      error: () => {
+        this.erro.set(`Não foi possível excluir o gateway "${gateway.nome}".`);
+        this.gatewayParaExcluir.set(null);
+      },
     });
   }
 }

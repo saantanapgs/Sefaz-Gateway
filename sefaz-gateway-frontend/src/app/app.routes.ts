@@ -1,29 +1,13 @@
+// SNIPPET DE INTEGRAÇÃO — mescle com o seu app.routes.ts existente,
+// não sobrescreva rotas de outras features que já existam nele.
 import { Routes } from '@angular/router';
-
-import { GatewayListComponent } from './features/gateway/components/gateway-list/gateway-list';
-import { GatewayFormComponent } from './features/gateway/components/gateway-form/gateway-form';
-import { GatewayDetailsComponent } from './features/gateway/components/gateway-details/gateway-details';
+import { DashboardComponent } from './features/dashboard/dashboard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'gateways',
-    pathMatch: 'full',
-  },
+  { path: '', component: DashboardComponent },
   {
     path: 'gateways',
-    component: GatewayListComponent,
+    loadChildren: () => import('./features/gateway/gateway.routes').then((m) => m.GATEWAY_ROUTES),
   },
-  {
-    path: 'gateways/novo',
-    component: GatewayFormComponent,
-  },
-  {
-    path: 'gateways/:id',
-    component: GatewayDetailsComponent,
-  },
-  {
-    path: 'gateways/:id/editar',
-    component: GatewayFormComponent,
-  },
+  // ... demais rotas do projeto continuam aqui.
 ];

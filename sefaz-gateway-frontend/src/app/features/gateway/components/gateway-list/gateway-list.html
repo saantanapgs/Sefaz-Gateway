@@ -3,19 +3,36 @@
   <a routerLink="/gateways/novo" class="botao botao--primario">Novo gateway</a>
 </header>
 
+<div class="filtros">
+  <input
+    type="search"
+    placeholder="Buscar por nome…"
+    [value]="termoBusca()"
+    (input)="termoBusca.set($any($event.target).value)"
+  />
+
+  <select [value]="filtroStatus()" (change)="filtroStatus.set($any($event.target).value)">
+    <option value="todos">Todos os status</option>
+    <option value="ativos">Somente ativos</option>
+    <option value="inativos">Somente inativos</option>
+  </select>
+</div>
+
 @if (carregando()) {
   <p class="estado">Carregando gateways…</p>
 }
 
 @if (erro()) {
-  <p class="estado estado--erro">{{ erro() }}</p>
+  <app-error-state [mensagem]="erro()!" (tentarNovamente)="carregar()" />
 }
 
-@if (!carregando() && !erro() && gateways().length === 0) {
-  <p class="estado">Nenhum gateway cadastrado ainda.</p>
+@if (!carregando() && !erro() && gatewaysFiltrados().length === 0) {
+  <app-empty-state
+    [mensagem]="gateways().length === 0 ? 'Nenhum gateway cadastrado ainda.' : 'Nenhum gateway encontrado para esse filtro.'"
+  />
 }
 
-@if (!carregando() && !erro() && gateways().length > 0) {
+@if (!carregando() && !erro() && gatewaysFiltrados().length > 0) {
   <table class="tabela">
     <thead>
       <tr>
@@ -29,7 +46,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (gateway of gateways(); track gateway.id) {
+      @for (gateway of gatewaysFiltrados(); track gateway.id) {
         <tr>
           <td>{{ gateway.nome }}</td>
           <td>{{ gateway.host || '—' }}</td>
@@ -47,10 +64,19 @@
             <button type="button" (click)="alternarAtivo(gateway)">
               {{ gateway.ativo ? 'Desativar' : 'Ativar' }}
             </button>
-            <button type="button" class="botao--perigo" (click)="excluir(gateway)">Excluir</button>
+            <button type="button" class="botao--perigo" (click)="pedirConfirmacaoExclusao(gateway)">Excluir</button>
           </td>
         </tr>
       }
     </tbody>
   </table>
+}
+
+@if (gatewayParaExcluir(); as gateway) {
+  <app-confirm-dialog
+    titulo="Excluir gateway"
+    [mensagem]="'Excluir o gateway \'' + gateway.nome + '\'? Essa ação não pode ser desfeita.'"
+    (confirmar)="confirmarExclusao()"
+    (cancelar)="cancelarExclusao()"
+  />
 }

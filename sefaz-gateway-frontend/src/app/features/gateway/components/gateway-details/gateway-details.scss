@@ -1,3 +1,26 @@
+.resumo-ia {
+  background: var(--color-surface, #fff);
+  border: 1px dashed var(--color-border, #e3e5ea);
+  border-radius: var(--radius, 8px);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+
+  &__etiqueta {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-primary, #2452ff);
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
 .cabecalho {
   display: flex;
   align-items: center;
