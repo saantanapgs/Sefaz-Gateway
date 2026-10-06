@@ -7,23 +7,27 @@
 }
 
 @if (gateway(); as g) {
+  <div class="banner">
+    <div>
+      <span class="banner__etiqueta">Detalhes</span>
+      <h1 class="banner__titulo">{{ g.nome }}</h1>
+      <p class="banner__subtitulo">{{ g.contextPath }}</p>
+    </div>
+    <div class="acoes-banner">
+      <a [routerLink]="['/gateways', g.id, 'editar']" class="botao botao--claro">Editar</a>
+      <a routerLink="/gateways" class="botao botao--claro">Voltar</a>
+    </div>
+  </div>
+
   @if (resumoIa(); as resumo) {
-    <section class="resumo-ia">
-      <span class="resumo-ia__etiqueta">Resumo</span>
+    <div class="card resumo-ia">
+      <span class="etiqueta">Resumo</span>
       <p>{{ resumo }}</p>
-    </section>
+    </div>
   }
 
-  <header class="cabecalho">
-    <h1>{{ g.nome }}</h1>
-    <div class="acoes">
-      <a [routerLink]="['/gateways', g.id, 'editar']">Editar</a>
-      <a routerLink="/gateways">Voltar</a>
-    </div>
-  </header>
-
-  <section class="secao">
-    <h2>Dados gerais</h2>
+  <div class="card">
+    <span class="etiqueta">Dados gerais</span>
     <dl class="lista-dados">
       <dt>Host</dt><dd>{{ g.host || '—' }}</dd>
       <dt>Porta</dt><dd>{{ g.porta || '—' }}</dd>
@@ -35,10 +39,10 @@
       <dt>Tags</dt><dd>{{ (g.tags ?? []).join(', ') || '—' }}</dd>
       <dt>Descrição</dt><dd>{{ g.descricao || '—' }}</dd>
     </dl>
-  </section>
+  </div>
 
-  <section class="secao">
-    <h2>Backends vinculados</h2>
+  <div class="card">
+    <span class="etiqueta">Backends vinculados</span>
     @if (g.backends.length === 0) {
       <p class="estado">Nenhum backend vinculado.</p>
     } @else {
@@ -53,11 +57,11 @@
         }
       </ul>
     }
-  </section>
+  </div>
 }
 
-<section class="secao">
-  <h2>Saúde agregada</h2>
+<div class="card">
+  <span class="etiqueta">Saúde agregada</span>
   @if (erroSaude()) {
     <p class="estado estado--erro">{{ erroSaude() }}</p>
   } @else if (saude(); as s) {
@@ -68,10 +72,10 @@
   } @else {
     <p class="estado">Carregando…</p>
   }
-</section>
+</div>
 
-<section class="secao">
-  <h2>Versão</h2>
+<div class="card">
+  <span class="etiqueta">Versão</span>
   @if (erroVersao()) {
     <p class="estado estado--erro">{{ erroVersao() }}</p>
   } @else if (versao(); as v) {
@@ -79,10 +83,10 @@
   } @else {
     <p class="estado">Carregando…</p>
   }
-</section>
+</div>
 
-<section class="secao">
-  <h2>Pipelines</h2>
+<div class="card">
+  <span class="etiqueta">Pipelines</span>
   @if (erroPipelines()) {
     <p class="estado estado--erro">{{ erroPipelines() }}</p>
   } @else if (pipelines().length === 0) {
@@ -100,7 +104,7 @@
       Consultar status de um pipeline específico
       <input type="number" #pipelineIdInput placeholder="ID do pipeline (opcional)" />
     </label>
-    <button type="button" (click)="consultarStatusPipeline(pipelineIdInput.value ? +pipelineIdInput.value : null)">
+    <button type="button" class="botao botao--primario" (click)="consultarStatusPipeline(pipelineIdInput.value ? +pipelineIdInput.value : null)">
       Consultar
     </button>
 
@@ -111,10 +115,10 @@
       <p>Pipeline #{{ sp.iid }}: {{ sp.status }}</p>
     }
   </div>
-</section>
+</div>
 
-<section class="secao">
-  <h2>Endpoints</h2>
+<div class="card">
+  <span class="etiqueta">Endpoints</span>
   @if (erroContagem()) {
     <p class="estado estado--erro">{{ erroContagem() }}</p>
   } @else if (contagemEndpoints(); as c) {
@@ -122,4 +126,4 @@
   } @else {
     <p class="estado">Carregando…</p>
   }
-</section>
+</div>

@@ -1,19 +1,49 @@
-.resumo-ia {
-  background: var(--color-surface, #fff);
-  border: 1px dashed var(--color-border, #e3e5ea);
-  border-radius: var(--radius, 8px);
-  padding: 0.85rem 1rem;
+.banner {
   margin-bottom: 1.25rem;
+}
 
-  &__etiqueta {
-    display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-primary, #2452ff);
-    margin-bottom: 0.3rem;
+.acoes-banner {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.botao {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm, 6px);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-decoration: none;
+  border: none;
+  display: inline-block;
+
+  &--claro {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
   }
+
+  &--primario {
+    background: var(--color-primary, #1b3f78);
+    color: #fff;
+  }
+}
+
+.card {
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e1e5ee);
+  border-radius: var(--radius, 10px);
+  box-shadow: var(--shadow-sm, 0 2px 6px rgba(20, 30, 60, 0.08));
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.1rem;
+
+  .etiqueta {
+    display: inline-block;
+    margin-bottom: 0.6rem;
+  }
+}
+
+.resumo-ia {
+  border-left: 3px solid var(--color-accent, #f2a325);
 
   p {
     margin: 0;
@@ -21,40 +51,27 @@
   }
 }
 
-.cabecalho {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-
-  .acoes {
-    display: flex;
-    gap: 1rem;
-  }
-}
-
-.secao {
-  margin-bottom: 1.5rem;
-
-  h2 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
-}
-
 .lista-dados {
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 0.3rem 1rem;
+  gap: 0.35rem 1rem;
+  margin: 0;
 
   dt {
-    color: #666;
+    color: var(--color-text-muted, #64708a);
+    font-size: 0.85rem;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 0.85rem;
   }
 }
 
 .lista-simples {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -63,11 +80,14 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 0.88rem;
   }
 }
 
 .consulta-pipeline {
-  margin-top: 0.75rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border, #e1e5ee);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -81,14 +101,14 @@
   }
 
   input {
-    padding: 0.4rem 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-border, #e1e5ee);
+    border-radius: var(--radius-sm, 6px);
   }
 }
 
 .estado {
-  color: #555;
+  color: var(--color-text-muted, #64708a);
 
   &--erro {
     color: #b3261e;

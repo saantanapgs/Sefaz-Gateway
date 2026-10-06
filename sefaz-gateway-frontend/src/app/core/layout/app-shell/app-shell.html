@@ -1,6 +1,8 @@
 <div class="shell">
   <aside class="shell__sidebar">
     <div class="shell__marca">Sefaz Gateway</div>
+
+    <span class="shell__grupo-titulo">Principal</span>
     <nav class="shell__nav">
       <a routerLink="/" routerLinkActive="ativo" [routerLinkActiveOptions]="{ exact: true }">
         Dashboard
@@ -9,6 +11,14 @@
         Gateways
       </a>
     </nav>
+
+    <div class="shell__usuario">
+      <span class="shell__usuario-avatar">U</span>
+      <div class="shell__usuario-info">
+        <span class="shell__usuario-nome">Usuário</span>
+        <span class="shell__usuario-papel">Equipe Gateway</span>
+      </div>
+    </div>
   </aside>
 
   <div class="shell__conteudo">

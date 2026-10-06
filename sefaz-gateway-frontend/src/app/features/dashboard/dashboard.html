@@ -1,4 +1,11 @@
-<h1>Visão geral</h1>
+<div class="banner">
+  <div>
+    <span class="banner__etiqueta">Principal</span>
+    <h1 class="banner__titulo">Visão geral</h1>
+    <p class="banner__subtitulo">Indicadores e status consolidado dos Gateways</p>
+  </div>
+  <div class="banner__icone"></div>
+</div>
 
 @if (carregando()) {
   <p class="estado">Carregando…</p>
@@ -18,7 +25,10 @@
 
   <section class="tabela-secao">
     <div class="tabela-secao__cabecalho">
-      <h2>Gateways</h2>
+      <div>
+        <span class="etiqueta">Gerenciamento</span>
+        <h2>Gateways</h2>
+      </div>
       <a routerLink="/gateways" class="link">Ver todos</a>
     </div>
 

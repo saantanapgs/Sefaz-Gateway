@@ -1,7 +1,11 @@
-<header class="cabecalho">
-  <h1>Gateways</h1>
+<div class="banner">
+  <div>
+    <span class="banner__etiqueta">Gerenciamento</span>
+    <h1 class="banner__titulo">Gateways</h1>
+    <p class="banner__subtitulo">Listagem completa, com busca e filtro por status</p>
+  </div>
   <a routerLink="/gateways/novo" class="botao botao--primario">Novo gateway</a>
-</header>
+</div>
 
 <div class="filtros">
   <input
@@ -33,43 +37,45 @@
 }
 
 @if (!carregando() && !erro() && gatewaysFiltrados().length > 0) {
-  <table class="tabela">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Host</th>
-        <th>Porta</th>
-        <th>Context path</th>
-        <th>Tags</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (gateway of gatewaysFiltrados(); track gateway.id) {
+  <div class="tabela-card">
+    <table class="tabela">
+      <thead>
         <tr>
-          <td>{{ gateway.nome }}</td>
-          <td>{{ gateway.host || '—' }}</td>
-          <td>{{ gateway.porta || '—' }}</td>
-          <td>{{ gateway.contextPath }}</td>
-          <td>{{ (gateway.tags ?? []).join(', ') || '—' }}</td>
-          <td>
-            <span class="badge" [class.badge--ativo]="gateway.ativo" [class.badge--inativo]="!gateway.ativo">
-              {{ gateway.ativo ? 'Ativo' : 'Inativo' }}
-            </span>
-          </td>
-          <td class="acoes">
-            <a [routerLink]="['/gateways', gateway.id]">Ver</a>
-            <a [routerLink]="['/gateways', gateway.id, 'editar']">Editar</a>
-            <button type="button" (click)="alternarAtivo(gateway)">
-              {{ gateway.ativo ? 'Desativar' : 'Ativar' }}
-            </button>
-            <button type="button" class="botao--perigo" (click)="pedirConfirmacaoExclusao(gateway)">Excluir</button>
-          </td>
+          <th>Nome</th>
+          <th>Host</th>
+          <th>Porta</th>
+          <th>Context path</th>
+          <th>Tags</th>
+          <th>Status</th>
+          <th></th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (gateway of gatewaysFiltrados(); track gateway.id) {
+          <tr>
+            <td>{{ gateway.nome }}</td>
+            <td>{{ gateway.host || '—' }}</td>
+            <td>{{ gateway.porta || '—' }}</td>
+            <td>{{ gateway.contextPath }}</td>
+            <td>{{ (gateway.tags ?? []).join(', ') || '—' }}</td>
+            <td>
+              <span class="badge" [class.badge--ativo]="gateway.ativo" [class.badge--inativo]="!gateway.ativo">
+                {{ gateway.ativo ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td class="acoes">
+              <a [routerLink]="['/gateways', gateway.id]">Ver</a>
+              <a [routerLink]="['/gateways', gateway.id, 'editar']">Editar</a>
+              <button type="button" (click)="alternarAtivo(gateway)">
+                {{ gateway.ativo ? 'Desativar' : 'Ativar' }}
+              </button>
+              <button type="button" class="botao--perigo" (click)="pedirConfirmacaoExclusao(gateway)">Excluir</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 }
 
 @if (gatewayParaExcluir(); as gateway) {

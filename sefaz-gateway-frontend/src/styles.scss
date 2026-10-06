@@ -1,1 +1,107 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+  SNIPPET — adicione este bloco no INÍCIO do seu src/styles.scss real,
+  sem apagar o que já existir nele. Todos os componentes já usam essas
+  variáveis com fallback (var(--cor, valor-padrão)), então funcionam mesmo
+  sem colar isso — mas colando, a aparência fica igual em todo o app.
+
+  Paleta adaptada do layout de referência enviado (API Center): sidebar
+  azul-marinho, destaque em laranja/âmbar para item ativo, cards brancos
+  arredondados com cabeçalho em degradê azul, e "etiquetas" (eyebrow
+  labels) em caixa alta antes de cada título de seção.
+*/
+
+:root {
+  --color-primary: #1b3f78;
+  --color-primary-dark: #142c58;
+  --color-primary-light: #2f5fae;
+  --color-accent: #f2a325;
+
+  --color-bg: #eef1f6;
+  --color-surface: #ffffff;
+  --color-border: #e1e5ee;
+  --color-text: #1b2435;
+  --color-text-muted: #64708a;
+
+  --color-sidebar-bg: #16213e;
+  --color-sidebar-bg-alt: #1b2a4d;
+  --color-sidebar-text: #aab4cc;
+  --color-sidebar-active: #f2a325;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 2px 6px rgba(20, 30, 60, 0.08);
+  --shadow-md: 0 8px 20px rgba(20, 30, 60, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Etiqueta pequena em caixa alta usada antes de titulos de secao/card
+   (ex.: "GERENCIAMENTO", "FORMULARIO", "STATUS" no layout de referencia). */
+.etiqueta {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(27, 63, 120, 0.08);
+  color: var(--color-primary);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Banner em degrade azul usado como cabecalho de pagina/secao, igual aos
+   cards "SSE" e "Certificado Digital" do layout de referencia. */
+.banner {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: var(--shadow-md);
+
+  &__etiqueta {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  &__titulo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__subtitulo {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 0.2rem 0 0;
+  }
+
+  &__icone {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    flex-shrink: 0;
+  }
+}
