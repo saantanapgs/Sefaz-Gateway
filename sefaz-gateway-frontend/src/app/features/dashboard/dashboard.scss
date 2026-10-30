@@ -1,83 +1,160 @@
+:host {
+  display: block;
+  padding: 1.5rem 1.6rem 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+:host-context(.shell__main) {
+  padding: 0;
+  max-width: none;
+  margin: 0;
+}
+
 .banner {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.35rem;
 }
 
 .indicadores {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
 }
 
 .tabela-secao {
   background: var(--color-surface, #fff);
-  border: 1px solid var(--color-border, #e1e5ee);
-  border-radius: var(--radius, 10px);
-  box-shadow: var(--shadow-sm, 0 2px 6px rgba(20, 30, 60, 0.08));
-  padding: 1.25rem;
+  border: 1px solid var(--color-border, #d5dee6);
+  border-radius: var(--radius, 8px);
+  box-shadow: var(--shadow-sm);
+  padding: 1.15rem 1.2rem 0.4rem;
+  overflow: hidden;
 
   &__cabecalho {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border, #d5dee6);
 
     h2 {
-      margin: 0.3rem 0 0;
-      font-size: 1rem;
-      color: var(--color-text, #1b2435);
+      margin: 0.35rem 0 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text, #172433);
     }
   }
 }
 
 .link {
-  color: var(--color-primary, #1b3f78);
-  font-size: 0.85rem;
+  color: var(--color-primary, #143a5c);
+  font-size: 0.84rem;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--color-primary-light, #2b5d86);
+    text-decoration: underline;
+  }
 }
 
 .tabela {
   width: 100%;
   border-collapse: collapse;
 
-  th, td {
+  th,
+  td {
     text-align: left;
-    padding: 0.6rem 0.5rem;
-    border-bottom: 1px solid var(--color-border, #e1e5ee);
+    padding: 0.72rem 0.55rem;
+    border-bottom: 1px solid var(--color-border, #d5dee6);
     font-size: 0.9rem;
+    vertical-align: middle;
   }
 
   th {
-    color: var(--color-text-muted, #64708a);
-    font-size: 0.74rem;
+    color: var(--color-text-muted, #5b6b7a);
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
+    background: var(--color-surface-muted, #f7f9fa);
+  }
+
+  tbody tr {
+    transition: background var(--transition, 140ms ease);
+
+    &:hover {
+      background: rgba(20, 58, 92, 0.035);
+    }
+
+    &:last-child td {
+      border-bottom: 0;
+    }
+  }
+
+  td:nth-child(2) {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-text-muted, #5b6b7a);
+  }
+
+  a {
+    font-size: 0.84rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-primary, #143a5c);
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
 .backends-mini {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
+  gap: 0.28rem;
 }
 
 .sem-dado {
-  color: var(--color-text-muted, #64708a);
+  color: var(--color-text-muted, #5b6b7a);
 }
 
 .badge {
   display: inline-block;
-  padding: 0.15rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
+  padding: 0.16rem 0.62rem;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
 
-  &--ativo { background: #e3f7e9; color: #1e7d3c; }
-  &--inativo { background: #ececec; color: #5c5c5c; }
+  &--ativo {
+    background: var(--color-success-bg, #e6f4ec);
+    color: var(--color-success, #1b6b45);
+  }
+
+  &--inativo {
+    background: var(--color-neutral-bg, #eef1f4);
+    color: var(--color-neutral, #4f5d6b);
+  }
 }
 
 .estado {
-  color: var(--color-text-muted, #64708a);
+  color: var(--color-text-muted, #5b6b7a);
+  margin: 0.5rem 0 1rem;
+}
+
+@media (max-width: 720px) {
+  .tabela-secao {
+    padding: 1rem 0.7rem 0.2rem;
+    overflow-x: auto;
+  }
+
+  .tabela {
+    min-width: 36rem;
+  }
 }

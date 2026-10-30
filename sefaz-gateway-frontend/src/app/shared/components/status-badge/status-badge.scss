@@ -1,26 +1,38 @@
-.status-badge {
-  display: inline-block;
-  padding: 0.15rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+.status-badge,
+.status-badge--up,
+.status-badge--down,
+.status-badge--degraded,
+.status-badge--unknown {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.14rem 0.55rem;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--color-neutral-bg, #eef1f4);
+  color: var(--color-neutral, #4f5d6b);
+}
 
-  &--up {
-    background: #e3f7e9;
-    color: #1e7d3c;
-  }
-  &--down {
-    background: #fbe4e4;
-    color: #b3261e;
-  }
-  &--degraded {
-    background: #fdf1da;
-    color: #92600a;
-  }
-  &--unknown {
-    background: #ececec;
-    color: #5c5c5c;
-  }
+.status-badge--up {
+  background: var(--color-success-bg, #e6f4ec);
+  color: var(--color-success, #1b6b45);
+}
+
+.status-badge--down {
+  background: var(--color-danger-bg, #f8eaea);
+  color: var(--color-danger, #9d2f2f);
+}
+
+.status-badge--degraded {
+  background: var(--color-warning-bg, #f7f0de);
+  color: var(--color-warning, #8a6414);
+}
+
+.status-badge--unknown {
+  background: var(--color-neutral-bg, #eef1f4);
+  color: var(--color-neutral, #4f5d6b);
 }

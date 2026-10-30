@@ -1,6 +1,10 @@
 .empty-state {
-  padding: 2rem 1rem;
+  padding: 2.2rem 1rem;
   text-align: center;
-  color: var(--color-text-muted, #64708a);
+  color: var(--color-text-muted, #5b6b7a);
   font-size: 0.9rem;
+  background: var(--color-surface-muted, #f7f9fa);
+  border: 1px dashed var(--color-border, #d5dee6);
+  border-radius: var(--radius, 8px);
+  margin: 0.35rem 0 0.85rem;
 }

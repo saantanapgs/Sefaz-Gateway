@@ -3,20 +3,39 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius, 10px);
-  background: #fdeceb;
-  color: #b3261e;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius, 8px);
+  background: var(--color-danger-bg, #f8eaea);
+  color: var(--color-danger, #9d2f2f);
   font-size: 0.9rem;
+  border: 1px solid #efd2d2;
+  margin-bottom: 1rem;
+
+  p {
+    margin: 0;
+  }
 
   button {
     flex-shrink: 0;
     border: 1px solid currentColor;
-    background: transparent;
+    background: var(--color-surface, #fff);
     color: inherit;
-    padding: 0.3rem 0.7rem;
-    border-radius: var(--radius-sm, 6px);
+    padding: 0.38rem 0.75rem;
+    border-radius: var(--radius-sm, 5px);
     cursor: pointer;
     font-size: 0.8rem;
+    font-weight: 600;
+    transition: background var(--transition, 140ms ease);
+
+    &:hover {
+      background: #f3dcdc;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .error-state {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

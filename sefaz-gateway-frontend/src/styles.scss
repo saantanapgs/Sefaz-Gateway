@@ -1,107 +1,215 @@
 /*
-  SNIPPET — adicione este bloco no INÍCIO do seu src/styles.scss real,
-  sem apagar o que já existir nele. Todos os componentes já usam essas
-  variáveis com fallback (var(--cor, valor-padrão)), então funcionam mesmo
-  sem colar isso — mas colando, a aparência fica igual em todo o app.
-
-  Paleta adaptada do layout de referência enviado (API Center): sidebar
-  azul-marinho, destaque em laranja/âmbar para item ativo, cards brancos
-  arredondados com cabeçalho em degradê azul, e "etiquetas" (eyebrow
-  labels) em caixa alta antes de cada título de seção.
+  Tokens visuais institucionais do SEFAZ Gateway.
+  Paleta sóbria inspirada no contexto do Governo de Sergipe
+  (navy, verde e ouro), sem reivindicar códigos oficiais.
 */
 
 :root {
-  --color-primary: #1b3f78;
-  --color-primary-dark: #142c58;
-  --color-primary-light: #2f5fae;
-  --color-accent: #f2a325;
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", "Segoe UI Mono", ui-monospace, Consolas, "Liberation Mono", monospace;
 
-  --color-bg: #eef1f6;
+  --color-primary: #143a5c;
+  --color-primary-dark: #0c2740;
+  --color-primary-light: #2b5d86;
+  --color-accent: #c4a35a;
+  --color-accent-soft: #e8d7a8;
+  --color-brand-green: #1f6b4a;
+
+  --color-bg: #eef2f4;
+  --color-bg-alt: #e4eaee;
   --color-surface: #ffffff;
-  --color-border: #e1e5ee;
-  --color-text: #1b2435;
-  --color-text-muted: #64708a;
+  --color-surface-muted: #f7f9fa;
+  --color-border: #d5dee6;
+  --color-border-strong: #b7c4d0;
+  --color-text: #172433;
+  --color-text-muted: #5b6b7a;
+  --color-text-inverse: #f4f7f9;
 
-  --color-sidebar-bg: #16213e;
-  --color-sidebar-bg-alt: #1b2a4d;
-  --color-sidebar-text: #aab4cc;
-  --color-sidebar-active: #f2a325;
+  --color-sidebar-bg: #0d2233;
+  --color-sidebar-bg-alt: #133044;
+  --color-sidebar-text: #b4c3d1;
+  --color-sidebar-active: #d4b56a;
 
-  --radius: 10px;
-  --radius-sm: 6px;
-  --shadow-sm: 0 2px 6px rgba(20, 30, 60, 0.08);
-  --shadow-md: 0 8px 20px rgba(20, 30, 60, 0.14);
+  --color-success: #1b6b45;
+  --color-success-bg: #e6f4ec;
+  --color-danger: #9d2f2f;
+  --color-danger-bg: #f8eaea;
+  --color-warning: #8a6414;
+  --color-warning-bg: #f7f0de;
+  --color-neutral: #4f5d6b;
+  --color-neutral-bg: #eef1f4;
+  --color-info: #1d5a87;
+  --color-info-bg: #e7f1f7;
+  --color-focus: #2b5d86;
+
+  --radius: 8px;
+  --radius-sm: 5px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(12, 39, 64, 0.06), 0 1px 3px rgba(12, 39, 64, 0.04);
+  --shadow-md: 0 8px 24px rgba(12, 39, 64, 0.1);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --control-height: 2.4rem;
+  --transition: 140ms ease;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
 }
 
 button {
   cursor: pointer;
 }
 
-/* Etiqueta pequena em caixa alta usada antes de titulos de secao/card
-   (ex.: "GERENCIAMENTO", "FORMULARIO", "STATUS" no layout de referencia). */
-.etiqueta {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  background: rgba(27, 63, 120, 0.08);
-  color: var(--color-primary);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+button:disabled {
+  cursor: not-allowed;
 }
 
-/* Banner em degrade azul usado como cabecalho de pagina/secao, igual aos
-   cards "SSE" e "Certificado Digital" do layout de referencia. */
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(20, 58, 92, 0.16);
+  color: var(--color-text);
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: rgba(20, 58, 92, 0.08);
+  color: var(--color-primary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
 .banner {
-  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dark));
-  color: #fff;
+  background:
+    linear-gradient(180deg, rgba(196, 163, 90, 0.18) 0 3px, transparent 3px),
+    linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 72%);
+  color: var(--color-text-inverse);
   border-radius: var(--radius);
-  padding: 1.1rem 1.4rem;
+  padding: 1.15rem 1.4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(12, 39, 64, 0.18);
 
   &__etiqueta {
     display: inline-block;
-    padding: 0.15rem 0.55rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.18);
+    padding: 0.14rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--color-accent-soft);
     font-size: 0.64rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-bottom: 0.4rem;
   }
 
   &__titulo {
-    font-size: 1.3rem;
+    font-size: 1.28rem;
     font-weight: 700;
     margin: 0;
+    letter-spacing: -0.02em;
+    color: #fff;
   }
 
   &__subtitulo {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.82);
-    margin: 0.2rem 0 0;
+    font-size: 0.86rem;
+    color: rgba(244, 247, 249, 0.78);
+    margin: 0.25rem 0 0;
+    max-width: 42rem;
   }
 
   &__icone {
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.16);
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.28), transparent 48%),
+      rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(232, 215, 168, 0.35);
     flex-shrink: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .banner {
+    flex-wrap: wrap;
+    padding: 1rem 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
