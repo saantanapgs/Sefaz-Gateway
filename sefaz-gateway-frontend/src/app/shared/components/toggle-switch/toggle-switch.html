@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="toggle"
+  [class.toggle--ligado]="ativo()"
+  role="switch"
+  [attr.aria-checked]="ativo()"
+  [attr.aria-label]="rotulo()"
+  [attr.title]="rotulo()"
+  [disabled]="desabilitado()"
+  (click)="alternar.emit()"
+>
+  <span class="toggle__bolinha"></span>
+</button>

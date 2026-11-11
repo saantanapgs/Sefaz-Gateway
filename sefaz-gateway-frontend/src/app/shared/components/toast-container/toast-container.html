@@ -1,0 +1,10 @@
+<div class="toasts" aria-live="polite">
+  @for (item of itens(); track item.id) {
+    <div class="toast" [class]="'toast toast--' + item.tipo" [attr.role]="item.tipo === 'erro' ? 'alert' : 'status'">
+      <span>{{ item.mensagem }}</span>
+      <button type="button" aria-label="Fechar mensagem" (click)="fechar.emit(item.id)">
+        <app-icon nome="x" [tamanho]="14" />
+      </button>
+    </div>
+  }
+</div>

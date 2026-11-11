@@ -5,7 +5,7 @@ import { Component, input } from '@angular/core';
   selector: 'app-empty-state',
   standalone: true,
   templateUrl: './empty-state.html',
-  styleUrl: './empty-state.scss',
+  styleUrl: './empty-state.css',
 })
 export class EmptyStateComponent {
   readonly mensagem = input<string>('Nenhum item encontrado.');

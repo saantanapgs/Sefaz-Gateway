@@ -14,6 +14,6 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './app-shell.html',
-  styleUrl: './app-shell.scss',
+  styleUrl: './app-shell.css',
 })
 export class AppShellComponent {}

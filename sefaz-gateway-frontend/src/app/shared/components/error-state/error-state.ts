@@ -8,7 +8,7 @@ import { Component, input, output } from '@angular/core';
   selector: 'app-error-state',
   standalone: true,
   templateUrl: './error-state.html',
-  styleUrl: './error-state.scss',
+  styleUrl: './error-state.css',
 })
 export class ErrorStateComponent {
   readonly mensagem = input.required<string>();

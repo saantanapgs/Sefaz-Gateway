@@ -10,7 +10,7 @@ import { StatusSaude } from '../../models/status.model';
   selector: 'app-status-badge',
   standalone: true,
   templateUrl: './status-badge.html',
-  styleUrl: './status-badge.scss',
+  styleUrl: './status-badge.css',
 })
 export class StatusBadgeComponent {
   readonly status = input.required<StatusSaude>();

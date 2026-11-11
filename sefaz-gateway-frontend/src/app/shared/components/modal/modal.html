@@ -1,0 +1,23 @@
+<div class="overlay" (mousedown)="aoClicarFora()">
+  <div
+    #painel
+    class="painel"
+    [class.painel--lg]="largura() === 'lg'"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="titulo()"
+    tabindex="-1"
+    (mousedown)="$event.stopPropagation()"
+    (keydown.escape)="fechar.emit()"
+  >
+    <header class="painel__cabecalho">
+      <h2>{{ titulo() }}</h2>
+      <button type="button" class="painel__fechar" aria-label="Fechar" (click)="fechar.emit()">
+        <app-icon nome="x" [tamanho]="18" />
+      </button>
+    </header>
+    <div class="painel__corpo">
+      <ng-content />
+    </div>
+  </div>
+</div>

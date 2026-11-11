@@ -1,0 +1,15 @@
+<svg
+  [attr.width]="tamanho()"
+  [attr.height]="tamanho()"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  @for (d of tracados(); track d) {
+    <path [attr.d]="d" />
+  }
+</svg>

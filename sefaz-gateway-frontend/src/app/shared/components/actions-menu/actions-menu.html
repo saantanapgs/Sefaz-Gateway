@@ -1,0 +1,38 @@
+<button
+  #botao
+  type="button"
+  class="gatilho"
+  aria-haspopup="menu"
+  [attr.aria-expanded]="aberto()"
+  [attr.aria-label]="rotulo()"
+  [attr.title]="rotulo()"
+  (click)="alternar()"
+>
+  <app-icon nome="more" [tamanho]="20" />
+</button>
+
+@if (aberto()) {
+  <div
+    class="painel"
+    role="menu"
+    [style.top.px]="posicao().top"
+    [style.bottom.px]="posicao().bottom"
+    [style.right.px]="posicao().right"
+  >
+    @for (item of itens(); track item.id) {
+      <button
+        type="button"
+        role="menuitem"
+        class="item"
+        [class.item--perigo]="item.perigo"
+        [disabled]="item.desabilitado"
+        (click)="escolher(item)"
+      >
+        @if (item.icone) {
+          <app-icon [nome]="item.icone" [tamanho]="15" />
+        }
+        {{ item.rotulo }}
+      </button>
+    }
+  </div>
+}

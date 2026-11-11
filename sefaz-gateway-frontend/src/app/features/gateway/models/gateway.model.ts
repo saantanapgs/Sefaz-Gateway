@@ -30,7 +30,7 @@ export interface Gateway {
   urlExterna?: string;
   urlInterna?: string;
   rateLimit?: number;
-  backends: GatewayBackendResumo[];
+  backends?: GatewayBackendResumo[];
 }
 
 /**

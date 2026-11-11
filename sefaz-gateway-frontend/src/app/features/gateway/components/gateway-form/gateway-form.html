@@ -1,121 +1,139 @@
-<div class="banner">
-  <div>
-    <span class="banner__etiqueta">{{ modoEdicao() ? 'Edição' : 'Cadastro' }}</span>
-    <h1 class="banner__titulo">{{ modoEdicao() ? 'Editar gateway' : 'Novo gateway' }}</h1>
-    <p class="banner__subtitulo">Campos baseados no contrato Swagger</p>
-  </div>
-  <div class="banner__icone"></div>
-</div>
-
 @if (carregando()) {
   <p class="estado">Carregando dados do gateway…</p>
-}
+} @else {
+  @if (erro()) {
+    <p class="estado estado--erro" role="alert">{{ erro() }}</p>
+  }
 
-@if (erro()) {
-  <p class="estado estado--erro">{{ erro() }}</p>
-}
+  <form [formGroup]="form" (ngSubmit)="enviar()" class="formulario" novalidate>
+    <fieldset>
+      <legend class="etiqueta">Identificação</legend>
+      <div class="grade">
+        <label class="campo">
+          <span>Nome *</span>
+          <input type="text" formControlName="nome" maxlength="100" />
+          @if (form.controls.nome.touched && form.controls.nome.invalid) {
+            <small class="erro-campo">Obrigatório, até 100 caracteres.</small>
+          }
+        </label>
 
-@if (!carregando()) {
-  <div class="form-card">
-    <span class="etiqueta">Dados do gateway</span>
+        <label class="campo">
+          <span>Context path *</span>
+          <input type="text" formControlName="contextPath" maxlength="150" placeholder="/meu-gateway" />
+          @if (form.controls.contextPath.touched && form.controls.contextPath.invalid) {
+            <small class="erro-campo">Obrigatório, até 150 caracteres.</small>
+          }
+        </label>
 
-    <form [formGroup]="form" (ngSubmit)="enviar()" class="formulario">
-      <label>
-        Nome *
-        <input type="text" formControlName="nome" />
-        @if (form.controls.nome.touched && form.controls.nome.invalid) {
-          <small class="erro-campo">Obrigatório, até 100 caracteres.</small>
-        }
-      </label>
-
-      <label>
-        Context path *
-        <input type="text" formControlName="contextPath" />
-        @if (form.controls.contextPath.touched && form.controls.contextPath.invalid) {
-          <small class="erro-campo">Obrigatório, até 150 caracteres.</small>
-        }
-      </label>
-
-      <label>
-        IDs dos backends vinculados (separados por vírgula) *
-        <input type="text" formControlName="backendIds" placeholder="1, 2, 3" />
-        @if (form.controls.backendIds.touched && form.controls.backendIds.invalid) {
-          <small class="erro-campo">Informe ao menos um ID de backend.</small>
-        }
-      </label>
-
-      <label>
-        Endereço IP
-        <input type="text" formControlName="enderecoIp" placeholder="192.168.0.1" />
-        @if (form.controls.enderecoIp.touched && form.controls.enderecoIp.invalid) {
-          <small class="erro-campo">Formato de IPv4 inválido.</small>
-        }
-      </label>
-
-      <label>
-        Host
-        <input type="text" formControlName="host" />
-      </label>
-
-      <label>
-        Porta (4 dígitos)
-        <input type="text" formControlName="porta" maxlength="4" />
-        @if (form.controls.porta.touched && form.controls.porta.invalid) {
-          <small class="erro-campo">Deve ter exatamente 4 caracteres.</small>
-        }
-      </label>
-
-      <label>
-        Descrição
-        <textarea formControlName="descricao" maxlength="255"></textarea>
-      </label>
-
-      <label class="checkbox">
-        <input type="checkbox" formControlName="ativo" />
-        Ativo
-      </label>
-
-      <label>
-        GitLab ID
-        <input type="number" formControlName="gitlabId" />
-      </label>
-
-      <label>
-        Tentativas de retentativa (0–10)
-        <input type="number" formControlName="tentativasRetentativa" min="0" max="10" />
-      </label>
-
-      <label>
-        Rate limit (1–10000)
-        <input type="number" formControlName="rateLimit" min="1" max="10000" />
-      </label>
-
-      <label>
-        Tags (separadas por vírgula)
-        <input type="text" formControlName="tags" placeholder="interno, homologacao" />
-      </label>
-
-      <label>
-        URL de métricas
-        <input type="text" formControlName="urlMetricas" />
-      </label>
-
-      <label>
-        URL externa
-        <input type="text" formControlName="urlExterna" />
-      </label>
-
-      <label>
-        URL interna
-        <input type="text" formControlName="urlInterna" />
-      </label>
-
-      <div class="acoes-formulario">
-        <button type="submit" class="botao botao--primario" [disabled]="enviando()">
-          {{ enviando() ? 'Salvando…' : 'Salvar' }}
-        </button>
-        <a routerLink="/gateways" class="botao botao--secundario">Cancelar</a>
+        <label class="campo campo--largo">
+          <span>Descrição</span>
+          <textarea formControlName="descricao" maxlength="255" rows="2"></textarea>
+        </label>
       </div>
-    </form>
-  </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="etiqueta">Rede</legend>
+      <div class="grade">
+        <label class="campo">
+          <span>Host</span>
+          <input type="text" formControlName="host" maxlength="150" />
+        </label>
+
+        <label class="campo">
+          <span>Porta (4 caracteres)</span>
+          <input type="text" formControlName="porta" maxlength="4" placeholder="8080" />
+          @if (form.controls.porta.touched && form.controls.porta.invalid) {
+            <small class="erro-campo">Deve ter exatamente 4 caracteres.</small>
+          }
+        </label>
+
+        <label class="campo">
+          <span>Endereço IP</span>
+          <input type="text" formControlName="enderecoIp" placeholder="192.168.0.1" />
+          @if (form.controls.enderecoIp.touched && form.controls.enderecoIp.invalid) {
+            <small class="erro-campo">Formato de IPv4 inválido.</small>
+          }
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="etiqueta">Configuração</legend>
+      <div class="grade">
+        <label class="campo">
+          <span>Rate limit (1–10000)</span>
+          <input type="number" formControlName="rateLimit" min="1" max="10000" />
+          @if (form.controls.rateLimit.touched && form.controls.rateLimit.invalid) {
+            <small class="erro-campo">Informe um valor entre 1 e 10000.</small>
+          }
+        </label>
+
+        <label class="campo">
+          <span>Tentativas de retentativa (0–10)</span>
+          <input type="number" formControlName="tentativasRetentativa" min="0" max="10" />
+          @if (form.controls.tentativasRetentativa.touched && form.controls.tentativasRetentativa.invalid) {
+            <small class="erro-campo">Informe um valor entre 0 e 10.</small>
+          }
+        </label>
+
+        <label class="campo">
+          <span>GitLab ID</span>
+          <input type="number" formControlName="gitlabId" />
+        </label>
+
+        <label class="campo campo--marcar">
+          <input type="checkbox" formControlName="ativo" />
+          <span>Gateway ativo</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="etiqueta">Backends e tags</legend>
+      <div class="grade">
+        <label class="campo">
+          <span>IDs dos backends (separados por vírgula) *</span>
+          <input type="text" formControlName="backendIds" placeholder="1, 2, 3" />
+          @if (form.controls.backendIds.touched && form.controls.backendIds.invalid) {
+            <small class="erro-campo">Informe ao menos um ID numérico (ex.: 1, 2).</small>
+          }
+        </label>
+
+        <label class="campo">
+          <span>Tags (separadas por vírgula)</span>
+          <input type="text" formControlName="tags" placeholder="interno, homologacao" />
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="etiqueta">URLs</legend>
+      <div class="grade">
+        <label class="campo">
+          <span>URL de métricas</span>
+          <input type="text" formControlName="urlMetricas" maxlength="255" />
+        </label>
+
+        <label class="campo">
+          <span>URL externa</span>
+          <input type="text" formControlName="urlExterna" maxlength="255" />
+        </label>
+
+        <label class="campo campo--largo">
+          <span>URL interna</span>
+          <input type="text" formControlName="urlInterna" maxlength="255" />
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="acoes-formulario">
+      <button type="button" class="btn btn--secundario" (click)="cancelado.emit()" [disabled]="enviando()">
+        Cancelar
+      </button>
+      <button type="submit" class="btn btn--primario" [disabled]="enviando()">
+        {{ enviando() ? 'Salvando…' : modoEdicao() ? 'Salvar alterações' : 'Criar gateway' }}
+      </button>
+    </div>
+  </form>
 }

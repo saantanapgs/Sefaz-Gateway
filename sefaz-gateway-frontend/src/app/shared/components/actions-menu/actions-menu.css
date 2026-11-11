@@ -1,0 +1,54 @@
+:host {
+  display: inline-block;
+}
+
+.gatilho {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm, 5px);
+  background: transparent;
+  color: var(--color-text-muted, #5b6b7a);
+  transition: background var(--transition, 140ms ease), color var(--transition, 140ms ease);
+}
+.gatilho:hover, .gatilho[aria-expanded=true] {
+  background: var(--color-bg-alt, #e4eaee);
+  color: var(--color-primary, #143a5c);
+}
+
+.painel {
+  position: fixed;
+  z-index: 900;
+  min-width: 11.5rem;
+  padding: 0.3rem;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #d5dee6);
+  border-radius: var(--radius, 8px);
+  box-shadow: var(--shadow-md);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 0;
+  border-radius: var(--radius-sm, 5px);
+  background: transparent;
+  color: var(--color-text, #172433);
+  font-size: 0.86rem;
+  text-align: left;
+}
+.item:hover:not(:disabled), .item:focus-visible {
+  background: var(--color-surface-muted, #f7f9fa);
+}
+.item--perigo {
+  color: var(--color-danger, #9d2f2f);
+}
+.item:disabled {
+  opacity: 0.5;
+}

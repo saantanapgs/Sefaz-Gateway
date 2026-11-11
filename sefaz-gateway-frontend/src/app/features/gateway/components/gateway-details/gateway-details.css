@@ -1,0 +1,221 @@
+:host {
+  display: block;
+}
+
+.topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.topo__nome {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.topo__path {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-muted, #5b6b7a);
+}
+.topo__acoes {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.situacao {
+  padding: 0.15rem 0.65rem;
+  border-radius: var(--radius-pill, 999px);
+  background: var(--color-neutral-bg, #e8edf0);
+  color: var(--color-neutral, #5b6b7a);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.situacao--ativo {
+  background: var(--color-success-bg, #e3f1ea);
+  color: var(--color-success, #1b6b45);
+}
+
+.resumo {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.9rem;
+  border-left: 3px solid var(--color-accent, #c4a35a);
+  border-radius: var(--radius-sm, 5px);
+  background: var(--color-surface-muted, #f7f9fa);
+  font-size: 0.88rem;
+}
+
+.bloco {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--color-border, #d5dee6);
+}
+.bloco__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.bloco__titulo {
+  margin: 0 0 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #5b6b7a);
+}
+.bloco--duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.atualizacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted, #5b6b7a);
+}
+
+.dados {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem 1rem;
+  margin: 0;
+}
+.dados dt {
+  font-size: 0.72rem;
+  color: var(--color-text-muted, #5b6b7a);
+}
+.dados dd {
+  margin: 0.1rem 0 0;
+  font-size: 0.88rem;
+  overflow-wrap: anywhere;
+}
+.dados__largo {
+  grid-column: 1/-1;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.valor {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.valor small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-text-muted, #5b6b7a);
+}
+
+.saude-resumo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.6rem;
+  font-size: 0.86rem;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lista li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm, 5px);
+  background: var(--color-surface-muted, #f7f9fa);
+  font-size: 0.86rem;
+}
+.lista__nome {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+}
+.lista__data {
+  font-size: 0.75rem;
+  color: var(--color-text-muted, #5b6b7a);
+}
+
+.ref {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 16rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.ref input {
+  height: var(--control-height, 2.4rem);
+  padding: 0 0.7rem;
+  border: 1px solid var(--color-border, #d5dee6);
+  border-radius: var(--radius-sm, 5px);
+  font-weight: 400;
+}
+
+.consulta {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+.consulta .ref {
+  margin-bottom: 0;
+}
+
+.resultado {
+  margin: 0.7rem 0 0;
+  font-size: 0.84rem;
+}
+
+.pipeline {
+  padding: 0.1rem 0.55rem;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--color-neutral-bg, #e8edf0);
+  color: var(--color-neutral, #5b6b7a);
+}
+.pipeline.pipeline--ok {
+  background: var(--color-success-bg, #e3f1ea);
+  color: var(--color-success, #1b6b45);
+}
+.pipeline.pipeline--erro {
+  background: var(--color-danger-bg, #f6e4e4);
+  color: var(--color-danger, #9d2f2f);
+}
+.pipeline.pipeline--andamento {
+  background: var(--color-warning-bg, #f7f0de);
+  color: var(--color-warning, #8a6414);
+}
+
+.estado {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--color-text-muted, #5b6b7a);
+}
+.estado--erro {
+  color: var(--color-danger, #9d2f2f);
+}
+
+@media (max-width: 600px) {
+  .dados {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bloco--duplo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

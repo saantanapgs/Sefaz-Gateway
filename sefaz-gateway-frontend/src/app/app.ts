@@ -1,15 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { GatewayListComponent } from './features/gateway/components/gateway-list/gateway-list';
+import { OverlaysComponent } from './core/layout/overlays/overlays';
 
-imports: [
-  GatewayListComponent
-]
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, OverlaysComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('sefaz-gateway-frontend');

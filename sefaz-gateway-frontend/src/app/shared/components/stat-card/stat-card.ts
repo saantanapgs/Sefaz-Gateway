@@ -11,7 +11,7 @@ export type StatCardVariante = 'neutro' | 'sucesso' | 'perigo' | 'alerta';
   selector: 'app-stat-card',
   standalone: true,
   templateUrl: './stat-card.html',
-  styleUrl: './stat-card.scss',
+  styleUrl: './stat-card.css',
 })
 export class StatCardComponent {
   readonly rotulo = input.required<string>();

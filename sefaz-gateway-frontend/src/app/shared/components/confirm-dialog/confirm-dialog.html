@@ -1,10 +1,27 @@
-<div class="overlay" (click)="cancelar.emit()">
-  <div class="dialogo" (click)="$event.stopPropagation()">
+<div class="overlay" (mousedown)="cancelar.emit()">
+  <div
+    #painel
+    class="dialogo" [class.dialogo--perigo]="perigo()"
+    role="alertdialog"
+    aria-modal="true"
+    [attr.aria-label]="titulo()"
+    tabindex="-1"
+    (mousedown)="$event.stopPropagation()"
+    (keydown.escape)="cancelar.emit()"
+  >
     <h2>{{ titulo() }}</h2>
     <p>{{ mensagem() }}</p>
     <div class="acoes">
-      <button type="button" class="botao-secundario" (click)="cancelar.emit()">Cancelar</button>
-      <button type="button" class="botao-perigo" (click)="confirmar.emit()">Confirmar</button>
+      <button type="button" class="btn btn--secundario" (click)="cancelar.emit()">Cancelar</button>
+      <button
+        type="button"
+        class="btn"
+        [class.btn--perigo]="perigo()"
+        [class.btn--primario]="!perigo()"
+        (click)="confirmar.emit()"
+      >
+        {{ rotuloConfirmar() }}
+      </button>
     </div>
   </div>
 </div>

@@ -1,129 +1,191 @@
 @if (carregando()) {
   <p class="estado">Carregando gateway…</p>
-}
-
-@if (erro()) {
-  <p class="estado estado--erro">{{ erro() }}</p>
-}
-
-@if (gateway(); as g) {
-  <div class="banner">
+} @else if (erro()) {
+  <app-error-state [mensagem]="erro()!" (tentarNovamente)="recarregar()" />
+} @else if (gateway(); as g) {
+  <header class="topo">
     <div>
-      <span class="banner__etiqueta">Detalhes</span>
-      <h1 class="banner__titulo">{{ g.nome }}</h1>
-      <p class="banner__subtitulo">{{ g.contextPath }}</p>
+      <h3 class="topo__nome">{{ g.nome }}</h3>
+      <span class="topo__path">{{ g.contextPath }}</span>
     </div>
-    <div class="acoes-banner">
-      <a [routerLink]="['/gateways', g.id, 'editar']" class="botao botao--claro">Editar</a>
-      <a routerLink="/gateways" class="botao botao--claro">Voltar</a>
+    <div class="topo__acoes">
+      <span class="situacao" [class.situacao--ativo]="g.ativo">{{ g.ativo ? 'Ativo' : 'Inativo' }}</span>
+      <button type="button" class="btn btn--secundario btn--pequeno" (click)="editar.emit()">
+        <app-icon nome="edit" [tamanho]="15" />
+        Editar
+      </button>
     </div>
-  </div>
+  </header>
 
-  @if (resumoIa(); as resumo) {
-    <div class="card resumo-ia">
-      <span class="etiqueta">Resumo</span>
-      <p>{{ resumo }}</p>
-    </div>
+  @if (resumo(); as texto) {
+    <p class="resumo"><span class="etiqueta">Resumo automático</span> {{ texto }}</p>
   }
 
-  <div class="card">
-    <span class="etiqueta">Dados gerais</span>
-    <dl class="lista-dados">
-      <dt>Host</dt><dd>{{ g.host || '—' }}</dd>
-      <dt>Porta</dt><dd>{{ g.porta || '—' }}</dd>
-      <dt>IP</dt><dd>{{ g.enderecoIp || '—' }}</dd>
-      <dt>Context path</dt><dd>{{ g.contextPath }}</dd>
-      <dt>Ativo</dt><dd>{{ g.ativo ? 'Sim' : 'Não' }}</dd>
-      <dt>Rate limit</dt><dd>{{ g.rateLimit ?? '—' }}</dd>
-      <dt>Tentativas de retentativa</dt><dd>{{ g.tentativasRetentativa ?? '—' }}</dd>
-      <dt>Tags</dt><dd>{{ (g.tags ?? []).join(', ') || '—' }}</dd>
-      <dt>Descrição</dt><dd>{{ g.descricao || '—' }}</dd>
+  <section class="bloco">
+    <h4 class="bloco__titulo">Dados gerais</h4>
+    <dl class="dados">
+      <div><dt>Host</dt><dd class="mono">{{ g.host || '—' }}</dd></div>
+      <div><dt>Porta</dt><dd class="mono">{{ g.porta || '—' }}</dd></div>
+      <div><dt>IP</dt><dd class="mono">{{ g.enderecoIp || '—' }}</dd></div>
+      <div><dt>Rate limit</dt><dd>{{ g.rateLimit ?? '—' }}</dd></div>
+      <div><dt>Tentativas</dt><dd>{{ g.tentativasRetentativa ?? '—' }}</dd></div>
+      <div><dt>GitLab ID</dt><dd>{{ g.gitlabId ?? '—' }}</dd></div>
+      <div class="dados__largo"><dt>Descrição</dt><dd>{{ g.descricao || '—' }}</dd></div>
+      <div class="dados__largo">
+        <dt>Tags</dt>
+        <dd>{{ (g.tags ?? []).join(', ') || '—' }}</dd>
+      </div>
+      <div class="dados__largo"><dt>URL de métricas</dt><dd class="mono">{{ g.urlMetricas || '—' }}</dd></div>
+      <div class="dados__largo"><dt>URL externa</dt><dd class="mono">{{ g.urlExterna || '—' }}</dd></div>
+      <div class="dados__largo"><dt>URL interna</dt><dd class="mono">{{ g.urlInterna || '—' }}</dd></div>
     </dl>
+  </section>
+}
+
+<section class="bloco">
+  <div class="bloco__cabecalho">
+    <h4 class="bloco__titulo">Saúde dos backends</h4>
+    <span class="atualizacao">
+      @if (saudeAtualizadaEm(); as quando) {
+        Atualizado às {{ quando | date: 'HH:mm:ss' }}
+        @if (intervaloSegundos > 0) {
+          · a cada {{ intervaloSegundos }} s
+        }
+      }
+      <button type="button" class="btn btn--icone" title="Atualizar agora" aria-label="Atualizar saúde agora" (click)="atualizarSaude()">
+        <app-icon nome="refresh" [tamanho]="15" />
+      </button>
+    </span>
   </div>
 
-  <div class="card">
-    <span class="etiqueta">Backends vinculados</span>
-    @if (g.backends.length === 0) {
-      <p class="estado">Nenhum backend vinculado.</p>
-    } @else {
-      <ul class="lista-simples">
-        @for (backend of g.backends; track backend.id) {
+  @if (erroSaude(); as mensagem) {
+    <p class="estado estado--erro">{{ mensagem }}</p>
+  }
+  @if (saude(); as s) {
+    <p class="saude-resumo">
+      <app-status-badge [status]="s.statusAgregado" />
+      {{ s.totalUp }} up · {{ s.totalDown }} down · {{ s.totalUnknown }} desconhecido · {{ s.totalBackends }} no total
+    </p>
+    @if ((s.backends ?? []).length > 0) {
+      <ul class="lista">
+        @for (b of s.backends ?? []; track b.backendId) {
           <li>
-            {{ backend.descricao || ('Backend #' + backend.id) }}
-            @if (backend.status) {
-              <app-status-badge [status]="backend.status" />
-            }
+            <span class="lista__nome">{{ b.nome }}</span>
+            <app-status-badge [status]="b.ultimoStatus" />
+            <span class="lista__data">{{ formatarDataHora(b.dataUltimaVerificacao) }}</span>
           </li>
         }
       </ul>
     }
+  } @else if (!erroSaude()) {
+    <p class="estado">Carregando…</p>
+  }
+</section>
+
+<section class="bloco bloco--duplo">
+  <div>
+    <h4 class="bloco__titulo">Versão</h4>
+    @if (erroVersao(); as mensagem) {
+      <p class="estado estado--erro">{{ mensagem }}</p>
+    } @else if (versao(); as v) {
+      <p class="valor">{{ v.versaoGitlab }}</p>
+    } @else {
+      <p class="estado">Carregando…</p>
+    }
   </div>
+  <div>
+    <h4 class="bloco__titulo">Contagem</h4>
+    @if (erroContagem(); as mensagem) {
+      <p class="estado estado--erro">{{ mensagem }}</p>
+    } @else if (contagem(); as c) {
+      <p class="valor">{{ c.totalBackends }} <small>backend(s) · fonte: {{ c.fonte }}</small></p>
+    } @else {
+      <p class="estado">Carregando…</p>
+    }
+  </div>
+</section>
+
+@if (gateway(); as g) {
+  <section class="bloco">
+    <h4 class="bloco__titulo">Disparar pipeline</h4>
+    @if ((g.backends ?? []).length === 0) {
+      <p class="estado">Nenhum backend vinculado a este gateway.</p>
+    } @else {
+      <label class="ref">
+        <span>Branch (ref)</span>
+        <input type="text" [value]="ref()" (input)="ref.set($any($event.target).value)" placeholder="main" />
+      </label>
+      <ul class="lista">
+        @for (backend of g.backends; track backend.id) {
+          <li>
+            <span class="lista__nome">{{ nomeDoBackend(backend) }}</span>
+            <button
+              type="button"
+              class="btn btn--primario btn--pequeno"
+              [disabled]="disparando() !== null"
+              (click)="dispararPipeline(backend)"
+            >
+              <app-icon nome="play" [tamanho]="13" />
+              {{ disparando() === backend.id ? 'Disparando…' : 'Disparar' }}
+            </button>
+          </li>
+        }
+      </ul>
+      @if (ultimoDisparo(); as disparo) {
+        <p class="resultado">
+          Pipeline #{{ disparo.pipeline.iid }} de "{{ disparo.backend }}" disparado em
+          <span class="mono">{{ disparo.pipeline.ref }}</span>
+          — situação: <span class="pipeline" [class]="'pipeline ' + classePipeline(disparo.pipeline.status)">{{ disparo.pipeline.status }}</span>
+          @if (disparo.pipeline.webUrl) {
+            · <a [href]="disparo.pipeline.webUrl" target="_blank" rel="noopener noreferrer">abrir no GitLab</a>
+          }
+        </p>
+      }
+    }
+  </section>
 }
 
-<div class="card">
-  <span class="etiqueta">Saúde agregada</span>
-  @if (erroSaude()) {
-    <p class="estado estado--erro">{{ erroSaude() }}</p>
-  } @else if (saude(); as s) {
-    <p>
-      Status geral: <app-status-badge [status]="s.statusAgregado" />
-      — {{ s.totalUp }} up, {{ s.totalDown }} down, {{ s.totalUnknown }} desconhecido, de {{ s.totalBackends }} backends.
-    </p>
+<section class="bloco">
+  <h4 class="bloco__titulo">Pipelines do gateway</h4>
+  @if (erroPipelines(); as mensagem) {
+    <p class="estado estado--erro">{{ mensagem }}</p>
+  } @else if (pipelines(); as lista) {
+    @if (lista.length === 0) {
+      <p class="estado">Nenhum pipeline encontrado.</p>
+    } @else {
+      <ul class="lista">
+        @for (p of lista; track p.id) {
+          <li>
+            <span class="lista__nome">#{{ p.iid }} <span class="mono">{{ p.ref }}</span></span>
+            <span class="pipeline" [class]="'pipeline ' + classePipeline(p.status)">{{ p.status }}</span>
+            <span class="lista__data">{{ formatarDataHora(p.updatedAt) }}</span>
+          </li>
+        }
+      </ul>
+    }
   } @else {
     <p class="estado">Carregando…</p>
   }
-</div>
 
-<div class="card">
-  <span class="etiqueta">Versão</span>
-  @if (erroVersao()) {
-    <p class="estado estado--erro">{{ erroVersao() }}</p>
-  } @else if (versao(); as v) {
-    <p>{{ v.versaoGitlab }}</p>
-  } @else {
-    <p class="estado">Carregando…</p>
-  }
-</div>
-
-<div class="card">
-  <span class="etiqueta">Pipelines</span>
-  @if (erroPipelines()) {
-    <p class="estado estado--erro">{{ erroPipelines() }}</p>
-  } @else if (pipelines().length === 0) {
-    <p class="estado">Nenhum pipeline encontrado.</p>
-  } @else {
-    <ul class="lista-simples">
-      @for (p of pipelines(); track p.id) {
-        <li>#{{ p.iid }} — {{ p.status }} ({{ p.ref }})</li>
-      }
-    </ul>
-  }
-
-  <div class="consulta-pipeline">
-    <label>
-      Consultar status de um pipeline específico
+  <div class="consulta">
+    <label class="ref">
+      <span>Consultar status de um pipeline</span>
       <input type="number" #pipelineIdInput placeholder="ID do pipeline (opcional)" />
     </label>
-    <button type="button" class="botao botao--primario" (click)="consultarStatusPipeline(pipelineIdInput.value ? +pipelineIdInput.value : null)">
+    <button
+      type="button"
+      class="btn btn--secundario btn--pequeno"
+      (click)="consultarStatusPipeline(pipelineIdInput.value ? +pipelineIdInput.value : null)"
+    >
       Consultar
     </button>
-
-    @if (erroStatusPipeline()) {
-      <p class="estado estado--erro">{{ erroStatusPipeline() }}</p>
-    }
-    @if (statusPipelineConsultado(); as sp) {
-      <p>Pipeline #{{ sp.iid }}: {{ sp.status }}</p>
-    }
   </div>
-</div>
-
-<div class="card">
-  <span class="etiqueta">Endpoints</span>
-  @if (erroContagem()) {
-    <p class="estado estado--erro">{{ erroContagem() }}</p>
-  } @else if (contagemEndpoints(); as c) {
-    <p>{{ c.totalBackends }} backend(s) — fonte: {{ c.fonte }}</p>
-  } @else {
-    <p class="estado">Carregando…</p>
+  @if (erroStatusPipeline(); as mensagem) {
+    <p class="estado estado--erro">{{ mensagem }}</p>
   }
-</div>
+  @if (statusPipelineConsultado(); as sp) {
+    <p class="resultado">
+      Pipeline #{{ sp.iid }}: <span class="pipeline" [class]="'pipeline ' + classePipeline(sp.status)">{{ sp.status }}</span>
+    </p>
+  }
+</section>

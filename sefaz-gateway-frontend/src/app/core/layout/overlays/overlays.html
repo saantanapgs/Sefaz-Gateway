@@ -1,0 +1,12 @@
+@if (confirm.pendente(); as pendente) {
+  <app-confirm-dialog
+    [titulo]="pendente.titulo"
+    [mensagem]="pendente.mensagem"
+    [rotuloConfirmar]="pendente.rotuloConfirmar ?? 'Confirmar'"
+    [perigo]="pendente.perigo ?? false"
+    (confirmar)="confirm.responder(true)"
+    (cancelar)="confirm.responder(false)"
+  />
+}
+
+<app-toast-container [itens]="notificacoes.itens()" (fechar)="notificacoes.fechar($event)" />

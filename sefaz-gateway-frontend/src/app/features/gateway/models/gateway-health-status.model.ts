@@ -18,5 +18,5 @@ export interface GatewayHealthStatus {
   totalUp: number;
   totalDown: number;
   totalUnknown: number;
-  backends: BackendStatusItem[];
+  backends?: BackendStatusItem[];
 }
