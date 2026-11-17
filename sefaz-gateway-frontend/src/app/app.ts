@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { OverlaysComponent } from './core/layout/overlays/overlays';
+import { GatewayDashboardComponent } from './features/gateway/components/gateway-dashboard/gateway-dashboard';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, OverlaysComponent],
+  imports: [GatewayDashboardComponent, OverlaysComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -1,0 +1,126 @@
+<div class="visoes" role="tablist" aria-label="Visões da tabela">
+  @for (item of visoes; track item.id) {
+    <button
+      type="button"
+      role="tab"
+      class="visoes__aba"
+      [class.visoes__aba--ativa]="visao() === item.id"
+      [attr.aria-selected]="visao() === item.id"
+      (click)="visao.set(item.id)"
+    >
+      {{ item.rotulo }}
+    </button>
+  }
+</div>
+
+<ng-template #celulaUrl let-valor let-rotulo="rotulo">
+  @if (valor) {
+    <span class="url">
+      <span class="url__texto mono" [title]="valor">{{ valor }}</span>
+      <app-copy-button [texto]="valor" [rotulo]="rotulo" />
+    </span>
+  } @else {
+    <span class="sem-dado">—</span>
+  }
+</ng-template>
+
+<div class="tabela-wrap">
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Gateway</th>
+        @switch (visao()) {
+          @case ('resumo') {
+            <th>Host</th>
+            <th>Backends</th>
+            <th>Situação</th>
+          }
+          @case ('rede') {
+            <th>Host</th>
+            <th>IP</th>
+            <th>URL externa</th>
+            <th>URL interna</th>
+            <th>Métricas</th>
+          }
+          @case ('limites') {
+            <th>Rate limit</th>
+            <th>Retentativas</th>
+            <th>GitLab ID</th>
+            <th>Situação</th>
+          }
+        }
+        <th><span class="sr-only">Ações</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (linha of linhas(); track linha.gateway.id) {
+        @let g = linha.gateway;
+        <tr>
+          <td>
+            <button type="button" class="nome-link" (click)="detalhes.emit(g)">{{ g.nome }}</button>
+            <span class="sub">{{ g.contextPath }}</span>
+            @if (visao() === 'resumo' && (g.tags ?? []).length > 0) {
+              <span class="tags">
+                @for (tag of g.tags ?? []; track tag) {
+                  <span class="tag">{{ tag }}</span>
+                }
+              </span>
+            }
+          </td>
+
+          @switch (visao()) {
+            @case ('resumo') {
+              <td class="mono">{{ g.host || '—' }}{{ g.porta ? ':' + g.porta : '' }}</td>
+              <td>
+                @if (linha.totalBackends === 0) {
+                  <span class="sem-dado">—</span>
+                } @else {
+                  <span class="backends-mini">
+                    @for (backend of linha.backendsVisiveis; track backend.id) {
+                      @if (backend.status) {
+                        <app-status-badge [status]="backend.status" />
+                      }
+                    }
+                    @if (linha.backendsExtras > 0) {
+                      <span class="sem-dado">+{{ linha.backendsExtras }}</span>
+                    }
+                  </span>
+                }
+              </td>
+              <td>
+                <span class="situacao">
+                  <app-toggle-switch
+                    [ativo]="g.ativo"
+                    [desabilitado]="estaEmAndamento(g.id)"
+                    [rotulo]="(g.ativo ? 'Desativar ' : 'Ativar ') + g.nome"
+                    (alternar)="alternar.emit(g)"
+                  />
+                  {{ g.ativo ? 'Ativo' : 'Inativo' }}
+                </span>
+              </td>
+            }
+            @case ('rede') {
+              <td class="mono">{{ g.host || '—' }}{{ g.porta ? ':' + g.porta : '' }}</td>
+              <td class="mono">{{ g.enderecoIp || '—' }}</td>
+              <td><ng-container *ngTemplateOutlet="celulaUrl; context: { $implicit: g.urlExterna, rotulo: 'Copiar URL externa' }" /></td>
+              <td><ng-container *ngTemplateOutlet="celulaUrl; context: { $implicit: g.urlInterna, rotulo: 'Copiar URL interna' }" /></td>
+              <td><ng-container *ngTemplateOutlet="celulaUrl; context: { $implicit: g.urlMetricas, rotulo: 'Copiar URL de métricas' }" /></td>
+            }
+            @case ('limites') {
+              <td>{{ g.rateLimit ?? '—' }}</td>
+              <td>{{ g.tentativasRetentativa ?? '—' }}</td>
+              <td>{{ g.gitlabId ?? '—' }}</td>
+              <td>
+                <span class="situacao-texto" [class.situacao-texto--ativo]="g.ativo">{{ g.ativo ? 'Ativo' : 'Inativo' }}</span>
+              </td>
+            }
+          }
+
+          <td class="col-acoes">
+            <app-actions-menu [itens]="linha.menu" (selecionar)="acao.emit({ gateway: g, acao: $event })" />
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

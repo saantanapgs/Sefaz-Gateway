@@ -1,0 +1,51 @@
+<div class="barra">
+  <label class="barra__filtro">
+    <span>Status</span>
+    <select [value]="filtro()" (change)="filtro.set($any($event.target).value)">
+      <option value="todos">Todos</option>
+      <option value="UP">UP</option>
+      <option value="DEGRADED">DEGRADED</option>
+      <option value="DOWN">DOWN</option>
+      <option value="UNKNOWN">UNKNOWN</option>
+    </select>
+  </label>
+  <span class="barra__contagem">{{ filtrados().length }} de {{ itens().length }} backend(s)</span>
+</div>
+
+@if (filtrados().length === 0) {
+  <app-empty-state mensagem="Nenhum backend encontrado para esse filtro." />
+} @else {
+  <div class="tabela-wrap">
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Backend</th>
+          <th>URL base</th>
+          <th>Status</th>
+          <th>Gateway</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of filtrados(); track item.gateway.id + '-' + item.backend.id) {
+          <tr>
+            <td>{{ item.backend.descricao || 'Backend #' + item.backend.id }}</td>
+            <td>
+              @if (item.backend.baseUrl) {
+                <span class="url">
+                  <span class="url__texto mono" [title]="item.backend.baseUrl">{{ item.backend.baseUrl }}</span>
+                  <app-copy-button [texto]="item.backend.baseUrl" rotulo="Copiar URL base" />
+                </span>
+              } @else {
+                <span class="sem-dado">—</span>
+              }
+            </td>
+            <td><app-status-badge [status]="item.status" /></td>
+            <td>
+              <button type="button" class="gateway-link" (click)="abrirGateway.emit(item.gateway)">{{ item.gateway.nome }}</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

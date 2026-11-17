@@ -2,13 +2,14 @@
   <div
     #painel
     class="painel"
+    [class.painel--sm]="largura() === 'sm'"
     [class.painel--lg]="largura() === 'lg'"
     role="dialog"
     aria-modal="true"
     [attr.aria-label]="titulo()"
     tabindex="-1"
     (mousedown)="$event.stopPropagation()"
-    (keydown.escape)="fechar.emit()"
+    (keydown.escape)="aoApertarEsc($event)"
   >
     <header class="painel__cabecalho">
       <h2>{{ titulo() }}</h2>

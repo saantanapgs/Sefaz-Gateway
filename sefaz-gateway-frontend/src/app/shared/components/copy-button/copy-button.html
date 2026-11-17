@@ -1,0 +1,10 @@
+<button
+  type="button"
+  class="copiar"
+  [class.copiar--ok]="copiado()"
+  [attr.aria-label]="rotulo()"
+  [attr.title]="copiado() ? 'Copiado' : rotulo()"
+  (click)="copiar()"
+>
+  <app-icon [nome]="copiado() ? 'check' : 'copy'" [tamanho]="14" />
+</button>

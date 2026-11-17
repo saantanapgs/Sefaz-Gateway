@@ -1,0 +1,52 @@
+@let p = atual();
+
+<header class="topo">
+  <div>
+    <h3 class="topo__nome">Pipeline #{{ p.iid }}</h3>
+    <span class="topo__id">id {{ p.id }}</span>
+  </div>
+  <div class="topo__acoes">
+    <span class="pipeline" [class]="'pipeline ' + classePipeline(p.status)">{{ p.status }}</span>
+    <button type="button" class="btn btn--secundario btn--pequeno" [disabled]="atualizando()" (click)="atualizarStatus()">
+      <app-icon nome="refresh" [tamanho]="14" />
+      {{ atualizando() ? 'Atualizando…' : 'Atualizar status' }}
+    </button>
+  </div>
+</header>
+
+@if (erro(); as mensagem) {
+  <p class="erro" role="alert">{{ mensagem }}</p>
+}
+@if (atualizadoEm(); as quando) {
+  <p class="nota">Status atualizado às {{ quando | date: 'HH:mm:ss' }}.</p>
+}
+
+<dl class="dados">
+  <div><dt>Branch (ref)</dt><dd class="mono">{{ p.ref || '—' }}</dd></div>
+  <div><dt>Origem</dt><dd>{{ p.source || '—' }}</dd></div>
+  <div><dt>Projeto</dt><dd>{{ p.projectId || '—' }}</dd></div>
+  <div>
+    <dt>Commit (SHA)</dt>
+    <dd class="mono linha">
+      <span [title]="p.sha">{{ p.sha ? p.sha.slice(0, 10) : '—' }}</span>
+      @if (p.sha) {
+        <app-copy-button [texto]="p.sha" rotulo="Copiar SHA completo" />
+      }
+    </dd>
+  </div>
+  <div class="largo"><dt>Nome</dt><dd>{{ p.name || '—' }}</dd></div>
+  <div><dt>Criado em</dt><dd>{{ formatarDataHora(p.createdAt) }}</dd></div>
+  <div><dt>Atualizado em</dt><dd>{{ formatarDataHora(p.updatedAt) }}</dd></div>
+  @if (p.webUrl) {
+    <div class="largo"><dt>GitLab</dt><dd><a [href]="p.webUrl" target="_blank" rel="noopener noreferrer">Abrir pipeline no GitLab</a></dd></div>
+  }
+</dl>
+
+<section class="disparo">
+  <h4 class="disparo__titulo">Disparar novo pipeline</h4>
+  <p class="nota">
+    O Swagger não permite reexecutar este pipeline. O disparo cria um novo pipeline em um backend vinculado ao
+    gateway, já com a branch deste pipeline preenchida.
+  </p>
+  <app-pipeline-trigger [backends]="backends()" [refInicial]="p.ref || 'main'" />
+</section>

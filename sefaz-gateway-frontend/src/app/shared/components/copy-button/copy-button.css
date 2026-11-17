@@ -1,0 +1,25 @@
+:host {
+  display: inline-flex;
+}
+
+.copiar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 0;
+  border-radius: var(--radius-sm, 5px);
+  background: transparent;
+  color: var(--color-text-muted, #5b6b7a);
+  transition: background var(--transition, 140ms ease), color var(--transition, 140ms ease);
+}
+
+.copiar:hover {
+  background: var(--color-bg-alt, #e4eaee);
+  color: var(--color-primary, #143a5c);
+}
+
+.copiar--ok {
+  color: var(--color-success, #1b6b45);
+}

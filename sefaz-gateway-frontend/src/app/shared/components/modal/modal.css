@@ -22,6 +22,10 @@
   box-shadow: var(--shadow-md);
   outline: none;
 }
+.painel--sm {
+  max-width: 28rem;
+}
+
 .painel--lg {
   max-width: 54rem;
 }

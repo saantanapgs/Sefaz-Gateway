@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 
 export type NomeIcone =
-  | 'plus' | 'more' | 'edit' | 'trash' | 'refresh' | 'play' | 'x' | 'eye' | 'search' | 'power';
+  | 'plus' | 'more' | 'edit' | 'trash' | 'refresh' | 'play' | 'x' | 'eye' | 'search' | 'power' | 'copy' | 'check' | 'chevron';
 
 /** Traçados (viewBox 24x24) dos ícones usados no projeto. Sem biblioteca externa. */
 const TRACADOS: Record<NomeIcone, string[]> = {
@@ -15,6 +15,9 @@ const TRACADOS: Record<NomeIcone, string[]> = {
   eye: ['M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z', 'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'],
   search: ['M21 21l-4.35-4.35', 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z'],
   power: ['M18.4 6.6a9 9 0 1 1-12.8 0', 'M12 2v10'],
+  copy: ['M20 9h-9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2z', 'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'],
+  check: ['M20 6L9 17l-5-5'],
+  chevron: ['M9 18l6-6-6-6'],
 };
 
 @Component({

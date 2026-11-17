@@ -7,41 +7,41 @@ import { mensagemDeErro } from '../../../../core/http/http-error';
 import { ConfirmService } from '../../../../core/services/confirm';
 import { NotificationService } from '../../../../core/services/notification';
 import { atualizacaoPeriodica } from '../../../../core/utils/atualizacao-periodica';
-import { ActionsMenuComponent, ItemMenu } from '../../../../shared/components/actions-menu/actions-menu';
+import { ItemMenu } from '../../../../shared/components/actions-menu/actions-menu';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state';
 import { ErrorStateComponent } from '../../../../shared/components/error-state/error-state';
 import { IconComponent } from '../../../../shared/components/icon/icon';
 import { ModalComponent } from '../../../../shared/components/modal/modal';
-import { StatCardComponent } from '../../../../shared/components/stat-card/stat-card';
-import { StatusBadgeComponent } from '../../../../shared/components/status-badge/status-badge';
-import { ToggleSwitchComponent } from '../../../../shared/components/toggle-switch/toggle-switch';
 import { Gateway } from '../../models/gateway.model';
 import { GatewayService } from '../../services/gateway';
+import { GatewayBackendsListComponent } from '../gateway-backends-list/gateway-backends-list';
 import { GatewayDetailsComponent } from '../gateway-details/gateway-details';
 import { GatewayFormComponent } from '../gateway-form/gateway-form';
+import { GatewayOverviewComponent } from '../gateway-overview/gateway-overview';
+import { AcaoDoMenu, GatewayTableComponent, LinhaGateway } from '../gateway-table/gateway-table';
 
 type FiltroStatus = 'todos' | 'ativos' | 'inativos';
 
 const MAX_BACKENDS_NA_LINHA = 4;
 
 /**
- * Tela única de Gateways: indicadores, busca/filtro, tabela com ações e os
- * modais de criar, editar e ver detalhes. Os dados (e o status dos backends
- * embutidos em cada gateway) são atualizados periodicamente.
+ * Tela única de Gateways. Aqui ficam o estado (lista, filtros, modais), a
+ * atualização periódica e as ações (ativar/desativar, excluir). A
+ * apresentação está nos componentes: visão geral, tabela, detalhes, formulário.
+ * Não há rotas: criar, editar, detalhes e backends abrem em modais.
  */
 @Component({
   selector: 'app-gateway-dashboard',
   standalone: true,
   imports: [
     DatePipe,
-    StatCardComponent,
-    StatusBadgeComponent,
-    ErrorStateComponent,
     EmptyStateComponent,
-    ToggleSwitchComponent,
-    ActionsMenuComponent,
+    ErrorStateComponent,
     IconComponent,
     ModalComponent,
+    GatewayOverviewComponent,
+    GatewayTableComponent,
+    GatewayBackendsListComponent,
     GatewayFormComponent,
     GatewayDetailsComponent,
   ],
@@ -63,26 +63,15 @@ export class GatewayDashboardComponent {
   readonly termoBusca = signal('');
   readonly filtroStatus = signal<FiltroStatus>('todos');
 
-  // Modais (no máximo um aberto por vez).
+  // Modais (no máximo um aberto por vez neste nível).
   readonly criando = signal(false);
   readonly gatewayEditando = signal<Gateway | null>(null);
   readonly gatewayDetalhando = signal<Gateway | null>(null);
+  readonly listandoBackends = signal(false);
 
   readonly intervaloSegundos = INTERVALO_ATUALIZACAO_STATUS_MS / 1000;
 
-  readonly total = computed(() => this.gateways().length);
-  readonly ativos = computed(() => this.gateways().filter((g) => g.ativo).length);
-  readonly inativos = computed(() => this.total() - this.ativos());
-
-  /** Gateway ativo com ao menos um backend DOWN ou DEGRADED (dados já vindos de GET /v1/gateways). */
-  readonly comProblemas = computed(
-    () =>
-      this.gateways().filter(
-        (g) => g.ativo && (g.backends ?? []).some((b) => b.status === 'DOWN' || b.status === 'DEGRADED'),
-      ).length,
-  );
-
-  readonly linhas = computed(() => {
+  readonly linhas = computed<LinhaGateway[]>(() => {
     const termo = this.termoBusca().trim().toLowerCase();
     const filtro = this.filtroStatus();
 
@@ -91,7 +80,9 @@ export class GatewayDashboardComponent {
         const passaStatus = filtro === 'todos' || (filtro === 'ativos' ? g.ativo : !g.ativo);
         const passaBusca =
           termo.length === 0 ||
-          [g.nome, g.host, g.contextPath].some((campo) => (campo ?? '').toLowerCase().includes(termo));
+          [g.nome, g.host, g.contextPath, g.enderecoIp, ...(g.tags ?? [])].some((campo) =>
+            (campo ?? '').toLowerCase().includes(termo),
+          );
         return passaStatus && passaBusca;
       })
       .map((gateway) => {
@@ -133,9 +124,7 @@ export class GatewayDashboardComponent {
         } else if (this.atualizadoEm() === null) {
           this.erro.set(mensagemDeErro(resposta.erro, 'carregar os gateways'));
         } else {
-          this.avisoAtualizacao.set(
-            'Não foi possível atualizar agora. Exibindo os últimos dados carregados.',
-          );
+          this.avisoAtualizacao.set('Não foi possível atualizar agora. Exibindo os últimos dados carregados.');
         }
       });
   }
@@ -146,10 +135,6 @@ export class GatewayDashboardComponent {
       this.erro.set(null);
     }
     this.recarregar$.next();
-  }
-
-  estaEmAndamento(id: number): boolean {
-    return this.emAndamento().includes(id);
   }
 
   // ---------------- modais ----------------
@@ -168,10 +153,16 @@ export class GatewayDashboardComponent {
     this.gatewayDetalhando.set(gateway);
   }
 
+  abrirBackends(): void {
+    this.fecharModais();
+    this.listandoBackends.set(true);
+  }
+
   fecharModais(): void {
     this.criando.set(false);
     this.gatewayEditando.set(null);
     this.gatewayDetalhando.set(null);
+    this.listandoBackends.set(false);
   }
 
   aoSalvar(gateway: Gateway): void {
@@ -184,7 +175,7 @@ export class GatewayDashboardComponent {
   }
 
   // ---------------- menu e ações ----------------
-  aoEscolherNoMenu(gateway: Gateway, acao: string): void {
+  aoEscolherNoMenu({ gateway, acao }: AcaoDoMenu): void {
     switch (acao) {
       case 'detalhes':
         this.abrirDetalhes(gateway);
@@ -256,6 +247,10 @@ export class GatewayDashboardComponent {
         this.notificacoes.erro(mensagemDeErro(erro, 'excluir o gateway'));
       },
     });
+  }
+
+  estaEmAndamento(id: number): boolean {
+    return this.emAndamento().includes(id);
   }
 
   private montarMenu(gateway: Gateway): ItemMenu[] {

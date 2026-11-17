@@ -1,0 +1,52 @@
+<div class="barra">
+  <span class="barra__contagem">
+    @if (pipelines(); as lista) {
+      {{ lista.length }} pipeline(s)
+    }
+  </span>
+  <div class="barra__acoes">
+    <button type="button" class="btn btn--secundario btn--pequeno" (click)="carregar()">
+      <app-icon nome="refresh" [tamanho]="14" />
+      Atualizar
+    </button>
+    <button type="button" class="btn btn--primario btn--pequeno" (click)="disparoAberto.set(true)">
+      <app-icon nome="play" [tamanho]="13" />
+      Disparar novo
+    </button>
+  </div>
+</div>
+
+@if (erro(); as mensagem) {
+  <app-error-state [mensagem]="mensagem" (tentarNovamente)="carregar()" />
+} @else if (pipelines(); as lista) {
+  @if (lista.length === 0) {
+    <app-empty-state mensagem="Nenhum pipeline encontrado para este gateway." />
+  } @else {
+    <ul class="lista">
+      @for (p of lista; track p.id) {
+        <li>
+          <button type="button" class="linha" (click)="selecionado.set(p)">
+            <span class="pipeline" [class]="'pipeline ' + classePipeline(p.status)">{{ p.status }}</span>
+            <span class="linha__nome">#{{ p.iid }} <span class="mono">{{ p.ref }}</span></span>
+            <span class="linha__data">{{ formatarDataHora(p.updatedAt) }}</span>
+            <app-icon nome="chevron" [tamanho]="16" />
+          </button>
+        </li>
+      }
+    </ul>
+  }
+} @else {
+  <p class="carregando">Carregando pipelines…</p>
+}
+
+@if (selecionado(); as pipeline) {
+  <app-modal [titulo]="'Pipeline #' + pipeline.iid" (fechar)="selecionado.set(null)" [fecharAoClicarFora]="true">
+    <app-pipeline-details [gatewayId]="gatewayId()" [pipeline]="pipeline" [backends]="backends()" />
+  </app-modal>
+}
+
+@if (disparoAberto()) {
+  <app-modal titulo="Disparar novo pipeline" largura="sm" (fechar)="disparoAberto.set(false)">
+    <app-pipeline-trigger [backends]="backends()" />
+  </app-modal>
+}

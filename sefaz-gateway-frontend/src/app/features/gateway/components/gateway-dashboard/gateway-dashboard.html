@@ -22,12 +22,7 @@
 } @else if (erro()) {
   <app-error-state [mensagem]="erro()!" (tentarNovamente)="recarregar()" />
 } @else {
-  <section class="indicadores" aria-label="Indicadores">
-    <app-stat-card rotulo="Total de gateways" [valor]="total()" />
-    <app-stat-card rotulo="Ativos" [valor]="ativos()" variante="sucesso" />
-    <app-stat-card rotulo="Inativos" [valor]="inativos()" />
-    <app-stat-card rotulo="Com problemas" [valor]="comProblemas()" variante="perigo" />
-  </section>
+  <app-gateway-overview [gateways]="gateways()" (detalhes)="abrirDetalhes($event)" (verBackends)="abrirBackends()" />
 
   <section class="painel">
     <div class="barra">
@@ -36,7 +31,7 @@
           <app-icon nome="search" [tamanho]="16" />
           <input
             type="search"
-            placeholder="Buscar por nome, host ou context path"
+            placeholder="Buscar por nome, host, IP ou tag"
             aria-label="Buscar gateways"
             [value]="termoBusca()"
             (input)="termoBusca.set($any($event.target).value)"
@@ -84,68 +79,13 @@
         }
       </app-empty-state>
     } @else {
-      <div class="tabela-wrap">
-        <table class="tabela">
-          <thead>
-            <tr>
-              <th>Gateway</th>
-              <th>Host</th>
-              <th>Backends</th>
-              <th>Situação</th>
-              <th><span class="sr-only">Ações</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (linha of linhas(); track linha.gateway.id) {
-              @let g = linha.gateway;
-              <tr>
-                <td>
-                  <button type="button" class="nome-link" (click)="abrirDetalhes(g)">{{ g.nome }}</button>
-                  <span class="sub">{{ g.contextPath }}</span>
-                  @if ((g.tags ?? []).length > 0) {
-                    <span class="tags">
-                      @for (tag of g.tags ?? []; track tag) {
-                        <span class="tag">{{ tag }}</span>
-                      }
-                    </span>
-                  }
-                </td>
-                <td class="mono">{{ g.host || '—' }}{{ g.porta ? ':' + g.porta : '' }}</td>
-                <td>
-                  @if (linha.totalBackends === 0) {
-                    <span class="sem-dado">—</span>
-                  } @else {
-                    <span class="backends-mini">
-                      @for (backend of linha.backendsVisiveis; track backend.id) {
-                        @if (backend.status) {
-                          <app-status-badge [status]="backend.status" />
-                        }
-                      }
-                      @if (linha.backendsExtras > 0) {
-                        <span class="sem-dado">+{{ linha.backendsExtras }}</span>
-                      }
-                    </span>
-                  }
-                </td>
-                <td>
-                  <span class="situacao">
-                    <app-toggle-switch
-                      [ativo]="g.ativo"
-                      [desabilitado]="estaEmAndamento(g.id)"
-                      [rotulo]="(g.ativo ? 'Desativar ' : 'Ativar ') + g.nome"
-                      (alternar)="alternarAtivo(g)"
-                    />
-                    {{ g.ativo ? 'Ativo' : 'Inativo' }}
-                  </span>
-                </td>
-                <td class="col-acoes">
-                  <app-actions-menu [itens]="linha.menu" (selecionar)="aoEscolherNoMenu(g, $event)" />
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+      <app-gateway-table
+        [linhas]="linhas()"
+        [emAndamento]="emAndamento()"
+        (detalhes)="abrirDetalhes($event)"
+        (acao)="aoEscolherNoMenu($event)"
+        (alternar)="alternarAtivo($event)"
+      />
     }
   </section>
 }
@@ -163,7 +103,13 @@
 }
 
 @if (gatewayDetalhando(); as detalhando) {
-  <app-modal titulo="Detalhes do gateway" largura="lg" [fecharAoClicarFora]="true" (fechar)="fecharModais()">
+  <app-modal titulo="Detalhes do gateway" [fecharAoClicarFora]="true" (fechar)="fecharModais()">
     <app-gateway-details [gatewayId]="detalhando.id" (editar)="abrirEdicao(detalhando)" />
+  </app-modal>
+}
+
+@if (listandoBackends()) {
+  <app-modal titulo="Backends de todos os gateways" largura="lg" [fecharAoClicarFora]="true" (fechar)="fecharModais()">
+    <app-gateway-backends-list [gateways]="gateways()" (abrirGateway)="abrirDetalhes($event)" />
   </app-modal>
 }

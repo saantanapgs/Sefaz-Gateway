@@ -11,8 +11,8 @@ import { GatewayDashboardComponent } from './gateway-dashboard';
 const URL = `${environment.apiBaseUrl}/v1/gateways`;
 
 const GATEWAYS: Gateway[] = [
-  { id: 1, nome: 'Gateway A', ativo: true, contextPath: '/a', backends: [{ id: 10, status: 'UP' }] },
-  { id: 2, nome: 'Gateway B', ativo: true, contextPath: '/b', backends: [{ id: 11, status: 'DOWN' }] },
+  { id: 1, nome: 'Gateway A', ativo: true, contextPath: '/a', tags: ['critico'], backends: [{ id: 10, status: 'UP' }] },
+  { id: 2, nome: 'Gateway B', ativo: true, contextPath: '/b', enderecoIp: '10.0.0.2', backends: [{ id: 11, status: 'DOWN' }] },
   { id: 3, nome: 'Gateway C', ativo: false, contextPath: '/c', backends: [{ id: 12, status: 'DEGRADED' }] },
 ];
 
@@ -37,15 +37,14 @@ describe('GatewayDashboardComponent', () => {
     return fixture;
   }
 
-  it('calcula os indicadores a partir de GET /v1/gateways', async () => {
-    const { componentInstance: tela } = await criarCarregado();
+  it('carrega GET /v1/gateways e repassa a lista para a visão geral', async () => {
+    const fixture = await criarCarregado();
+    const tela = fixture.componentInstance;
 
     expect(tela.carregando()).toBe(false);
-    expect(tela.total()).toBe(3);
-    expect(tela.ativos()).toBe(2);
-    expect(tela.inativos()).toBe(1);
-    // só conta gateway ATIVO com backend DOWN/DEGRADED (o C está inativo)
-    expect(tela.comProblemas()).toBe(1);
+    expect(tela.gateways().length).toBe(3);
+    expect((fixture.nativeElement as HTMLElement).querySelector('app-gateway-overview')).toBeTruthy();
+    expect((fixture.nativeElement as HTMLElement).querySelector('app-gateway-table')).toBeTruthy();
   });
 
   it('mostra erro claro quando a primeira carga falha', async () => {
@@ -68,6 +67,16 @@ describe('GatewayDashboardComponent', () => {
     tela.termoBusca.set('');
     tela.filtroStatus.set('inativos');
     expect(tela.linhas().map((l) => l.gateway.id)).toEqual([3]);
+  });
+
+  it('a busca também encontra por IP e por tag', async () => {
+    const { componentInstance: tela } = await criarCarregado();
+
+    tela.termoBusca.set('10.0.0.2');
+    expect(tela.linhas().map((l) => l.gateway.id)).toEqual([2]);
+
+    tela.termoBusca.set('critico');
+    expect(tela.linhas().map((l) => l.gateway.id)).toEqual([1]);
   });
 
   it('desativar pede confirmação e só chama PATCH depois de confirmar', async () => {
@@ -128,6 +137,31 @@ describe('GatewayDashboardComponent', () => {
 
     expect(tela.gateways().length).toBe(3);
     expect(TestBed.inject(NotificationService).itens()[0].tipo).toBe('erro');
+  });
+
+  it('o menu da tabela dispara a ação escolhida (detalhes e edição)', async () => {
+    const { componentInstance: tela } = await criarCarregado();
+
+    tela.aoEscolherNoMenu({ gateway: GATEWAYS[0], acao: 'detalhes' });
+    expect(tela.gatewayDetalhando()?.id).toBe(1);
+
+    tela.aoEscolherNoMenu({ gateway: GATEWAYS[0], acao: 'editar' });
+    expect(tela.gatewayEditando()?.id).toBe(1);
+    expect(tela.gatewayDetalhando()).toBeNull();
+  });
+
+  it('o modal de backends abre e fecha ao abrir os detalhes de um gateway', async () => {
+    const fixture = await criarCarregado();
+    const tela = fixture.componentInstance;
+
+    tela.abrirBackends();
+    fixture.detectChanges();
+    expect(tela.listandoBackends()).toBe(true);
+    expect((fixture.nativeElement as HTMLElement).querySelector('app-gateway-backends-list')).toBeTruthy();
+
+    tela.abrirDetalhes(GATEWAYS[1]);
+    expect(tela.listandoBackends()).toBe(false);
+    expect(tela.gatewayDetalhando()?.id).toBe(2);
   });
 
   it('abre os modais de criar, detalhes e edição, um por vez', async () => {
