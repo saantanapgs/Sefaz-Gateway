@@ -14,7 +14,6 @@ import { IconComponent } from '../../../../shared/components/icon/icon';
 import { ModalComponent } from '../../../../shared/components/modal/modal';
 import { Gateway } from '../../models/gateway.model';
 import { GatewayService } from '../../services/gateway';
-import { GatewayBackendsListComponent } from '../gateway-backends-list/gateway-backends-list';
 import { GatewayDetailsComponent } from '../gateway-details/gateway-details';
 import { GatewayFormComponent } from '../gateway-form/gateway-form';
 import { GatewayOverviewComponent } from '../gateway-overview/gateway-overview';
@@ -41,7 +40,6 @@ const MAX_BACKENDS_NA_LINHA = 4;
     ModalComponent,
     GatewayOverviewComponent,
     GatewayTableComponent,
-    GatewayBackendsListComponent,
     GatewayFormComponent,
     GatewayDetailsComponent,
   ],

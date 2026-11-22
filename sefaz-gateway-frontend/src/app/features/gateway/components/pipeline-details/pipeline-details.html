@@ -45,8 +45,8 @@
 <section class="disparo">
   <h4 class="disparo__titulo">Disparar novo pipeline</h4>
   <p class="nota">
-    O Swagger não permite reexecutar este pipeline. O disparo cria um novo pipeline em um backend vinculado ao
-    gateway, já com a branch deste pipeline preenchida.
+    Não é possível reexecutar este pipeline. O disparo cria um novo pipeline em um backend vinculado ao gateway,
+    já com a branch deste pipeline preenchida.
   </p>
   <app-pipeline-trigger [backends]="backends()" [refInicial]="p.ref || 'main'" />
 </section>

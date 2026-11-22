@@ -31,9 +31,8 @@ src/app/
     services/                  # gateway.ts, backend-pipeline.ts, gateway-ai.ts
     components/
       gateway-dashboard/       # contêiner: estado, atualização periódica, ações, modais
-      gateway-overview/        # indicadores + status dos backends + "requer atenção"
+      gateway-overview/        # indicadores + "requer atenção"
       gateway-table/           # tabela com 3 visões (Resumo, Rede e URLs, Limites)
-      gateway-backends-list/   # todos os backends de todos os gateways (modal)
       gateway-form/            # criar/editar (modal)
       gateway-details/         # detalhes enxutos: cartões que abrem um modal cada
       gateway-pipelines/       # lista de pipelines (modal dentro dos detalhes)
@@ -44,8 +43,6 @@ src/app/
 ## Dashboard
 
 - **Indicadores:** total, ativos, inativos, com problemas (ativo e com backend DOWN/DEGRADED).
-- **Status dos backends:** barra de distribuição (UP, DEGRADED, DOWN, UNKNOWN) de todos os backends;
-  backend sem status conta como UNKNOWN. "Ver backends" abre a lista completa, filtrável.
 - **Requer atenção:** até 5 gateways ativos com backends fora do ar ou degradados; clicar abre os detalhes.
 - **Tabela com visões:** *Resumo* (host, backends, situação com toggle), *Rede e URLs* (host, IP, URL
   externa/interna/métricas, com botão de copiar) e *Limites* (rate limit, retentativas, GitLab ID).

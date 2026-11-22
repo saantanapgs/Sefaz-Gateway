@@ -52,7 +52,7 @@
 
 .fatos {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.8fr) repeat(2, minmax(0, 1fr));
   gap: 0.75rem;
   margin: 0 0 1.1rem;
 }
@@ -74,6 +74,11 @@
   font-size: 1rem;
   font-weight: 700;
   overflow-wrap: anywhere;
+}
+
+.fatos dd.mono {
+  font-size: 0.86rem;
+  font-weight: 600;
 }
 
 .cartoes {

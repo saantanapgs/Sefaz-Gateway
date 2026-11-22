@@ -110,6 +110,5 @@
 
 @if (listandoBackends()) {
   <app-modal titulo="Backends de todos os gateways" largura="lg" [fecharAoClicarFora]="true" (fechar)="fecharModais()">
-    <app-gateway-backends-list [gateways]="gateways()" (abrirGateway)="abrirDetalhes($event)" />
   </app-modal>
 }
