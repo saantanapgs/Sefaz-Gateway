@@ -27,7 +27,7 @@ const MAX_BACKENDS_NA_LINHA = 4;
  * Tela única de Gateways. Aqui ficam o estado (lista, filtros, modais), a
  * atualização periódica e as ações (ativar/desativar, excluir). A
  * apresentação está nos componentes: visão geral, tabela, detalhes, formulário.
- * Não há rotas: criar, editar, detalhes e backends abrem em modais.
+ * Não há rotas: criar, editar, detalhes abrem em modais.
  */
 @Component({
   selector: 'app-gateway-dashboard',
@@ -65,7 +65,6 @@ export class GatewayDashboardComponent {
   readonly criando = signal(false);
   readonly gatewayEditando = signal<Gateway | null>(null);
   readonly gatewayDetalhando = signal<Gateway | null>(null);
-  readonly listandoBackends = signal(false);
 
   readonly intervaloSegundos = INTERVALO_ATUALIZACAO_STATUS_MS / 1000;
 
@@ -151,16 +150,10 @@ export class GatewayDashboardComponent {
     this.gatewayDetalhando.set(gateway);
   }
 
-  abrirBackends(): void {
-    this.fecharModais();
-    this.listandoBackends.set(true);
-  }
-
   fecharModais(): void {
     this.criando.set(false);
     this.gatewayEditando.set(null);
     this.gatewayDetalhando.set(null);
-    this.listandoBackends.set(false);
   }
 
   aoSalvar(gateway: Gateway): void {

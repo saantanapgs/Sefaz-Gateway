@@ -9,39 +9,6 @@
   <section class="cartao">
     <header class="cartao__topo">
       <div>
-        <span class="etiqueta">Backends</span>
-        <h2 class="cartao__titulo">Status dos backends</h2>
-      </div>
-      <button type="button" class="btn btn--secundario btn--pequeno" [disabled]="totalBackends() === 0" (click)="verBackends.emit()">
-        Ver backends
-      </button>
-    </header>
-
-    @if (totalBackends() === 0) {
-      <p class="vazio">Nenhum backend vinculado aos gateways.</p>
-    } @else {
-      <p class="sub">{{ totalBackends() }} backend(s) em {{ total() }} gateway(s)</p>
-      <div class="barra" role="img" [attr.aria-label]="'Distribuição do status de ' + totalBackends() + ' backends'">
-        @for (item of distribuicao(); track item.status) {
-          @if (item.quantidade > 0) {
-            <span [class]="'barra__trecho barra__trecho--' + item.status.toLowerCase()" [style.width.%]="item.percentual"></span>
-          }
-        }
-      </div>
-      <ul class="legenda">
-        @for (item of distribuicao(); track item.status) {
-          <li>
-            <app-status-badge [status]="item.status" />
-            <strong>{{ item.quantidade }}</strong>
-          </li>
-        }
-      </ul>
-    }
-  </section>
-
-  <section class="cartao">
-    <header class="cartao__topo">
-      <div>
         <span class="etiqueta">Atenção</span>
         <h2 class="cartao__titulo">Requer atenção</h2>
       </div>

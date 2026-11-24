@@ -153,7 +153,7 @@
 }
 
 .url__texto {
-  max-width: 14rem;
+  max-width: 9rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }

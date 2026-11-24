@@ -2,7 +2,7 @@
   <div>
     <span class="banner__etiqueta">Gerenciamento</span>
     <h1 class="banner__titulo">Gateways</h1>
-    <p class="banner__subtitulo">Indicadores, status dos backends e ações em uma única tela</p>
+    <p class="banner__subtitulo">Indicadores e ações dos gateways em uma única tela</p>
   </div>
   <button type="button" class="btn btn--destaque" (click)="abrirCriar()">
     <app-icon nome="plus" [tamanho]="16" />
@@ -22,7 +22,7 @@
 } @else if (erro()) {
   <app-error-state [mensagem]="erro()!" (tentarNovamente)="recarregar()" />
 } @else {
-  <app-gateway-overview [gateways]="gateways()" (detalhes)="abrirDetalhes($event)" (verBackends)="abrirBackends()" />
+  <app-gateway-overview [gateways]="gateways()" (detalhes)="abrirDetalhes($event)" />
 
   <section class="painel">
     <div class="barra">
@@ -105,10 +105,5 @@
 @if (gatewayDetalhando(); as detalhando) {
   <app-modal titulo="Detalhes do gateway" [fecharAoClicarFora]="true" (fechar)="fecharModais()">
     <app-gateway-details [gatewayId]="detalhando.id" (editar)="abrirEdicao(detalhando)" />
-  </app-modal>
-}
-
-@if (listandoBackends()) {
-  <app-modal titulo="Backends de todos os gateways" largura="lg" [fecharAoClicarFora]="true" (fechar)="fecharModais()">
   </app-modal>
 }

@@ -36,8 +36,7 @@
             <th>Situação</th>
           }
           @case ('rede') {
-            <th>Host</th>
-            <th>IP</th>
+            <th>Host / IP</th>
             <th>URL externa</th>
             <th>URL interna</th>
             <th>Métricas</th>
@@ -100,8 +99,10 @@
               </td>
             }
             @case ('rede') {
-              <td class="mono">{{ g.host || '—' }}{{ g.porta ? ':' + g.porta : '' }}</td>
-              <td class="mono">{{ g.enderecoIp || '—' }}</td>
+              <td>
+                <span class="mono">{{ g.host || '—' }}{{ g.porta ? ':' + g.porta : '' }}</span>
+                <span class="sub">{{ g.enderecoIp || '—' }}</span>
+              </td>
               <td><ng-container *ngTemplateOutlet="celulaUrl; context: { $implicit: g.urlExterna, rotulo: 'Copiar URL externa' }" /></td>
               <td><ng-container *ngTemplateOutlet="celulaUrl; context: { $implicit: g.urlInterna, rotulo: 'Copiar URL interna' }" /></td>
               <td><ng-container *ngTemplateOutlet="celulaUrl; context: { $implicit: g.urlMetricas, rotulo: 'Copiar URL de métricas' }" /></td>

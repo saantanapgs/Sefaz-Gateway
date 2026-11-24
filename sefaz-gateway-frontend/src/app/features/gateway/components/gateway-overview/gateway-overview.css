@@ -11,7 +11,7 @@
 
 .paineis {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.85rem;
   margin-bottom: 1.5rem;
 }
@@ -35,52 +35,6 @@
 .cartao__titulo {
   margin: 0.3rem 0 0;
   font-size: 1rem;
-}
-
-.sub {
-  margin: 0 0 0.6rem;
-  font-size: 0.8rem;
-  color: var(--color-text-muted, #5b6b7a);
-}
-
-.barra {
-  display: flex;
-  height: 0.7rem;
-  overflow: hidden;
-  border-radius: var(--radius-pill, 999px);
-  background: var(--color-bg-alt, #e4eaee);
-}
-
-.barra__trecho--up {
-  background: var(--color-success, #1b6b45);
-}
-
-.barra__trecho--degraded {
-  background: var(--color-warning, #8a6414);
-}
-
-.barra__trecho--down {
-  background: var(--color-danger, #9d2f2f);
-}
-
-.barra__trecho--unknown {
-  background: var(--color-border-strong, #b7c4d0);
-}
-
-.legenda {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  margin: 0.8rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.legenda li {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.86rem;
 }
 
 .atencao {
@@ -122,8 +76,7 @@
   gap: 0.25rem;
 }
 
-.mais,
-.vazio {
+.mais {
   margin: 0.5rem 0 0;
   font-size: 0.82rem;
   color: var(--color-text-muted, #5b6b7a);
@@ -136,10 +89,4 @@
   background: var(--color-success-bg, #e3f1ea);
   color: var(--color-success, #1b6b45);
   font-size: 0.86rem;
-}
-
-@media (max-width: 760px) {
-  .paineis {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }

@@ -150,20 +150,6 @@ describe('GatewayDashboardComponent', () => {
     expect(tela.gatewayDetalhando()).toBeNull();
   });
 
-  it('o modal de backends abre e fecha ao abrir os detalhes de um gateway', async () => {
-    const fixture = await criarCarregado();
-    const tela = fixture.componentInstance;
-
-    tela.abrirBackends();
-    fixture.detectChanges();
-    expect(tela.listandoBackends()).toBe(true);
-    expect((fixture.nativeElement as HTMLElement).querySelector('app-gateway-backends-list')).toBeTruthy();
-
-    tela.abrirDetalhes(GATEWAYS[1]);
-    expect(tela.listandoBackends()).toBe(false);
-    expect(tela.gatewayDetalhando()?.id).toBe(2);
-  });
-
   it('abre os modais de criar, detalhes e edição, um por vez', async () => {
     const { componentInstance: tela } = await criarCarregado();
 

@@ -27,15 +27,6 @@ describe('GatewayOverviewComponent', () => {
     expect(tela.comProblemas()).toBe(1);
   });
 
-  it('distribui o status de todos os backends, contando "sem status" como UNKNOWN', () => {
-    const tela = criar(GATEWAYS).componentInstance;
-    const porStatus = Object.fromEntries(tela.distribuicao().map((d) => [d.status, d.quantidade]));
-
-    expect(tela.totalBackends()).toBe(5);
-    expect(porStatus).toEqual({ UP: 2, DEGRADED: 1, DOWN: 1, UNKNOWN: 1 });
-    expect(tela.distribuicao().reduce((soma, d) => soma + d.percentual, 0)).toBeCloseTo(100);
-  });
-
   it('lista em "requer atenção" só os gateways ativos com problema', () => {
     const fixture = criar(GATEWAYS);
     const nomes = fixture.componentInstance.atencao().map((a) => a.gateway.nome);
@@ -44,28 +35,22 @@ describe('GatewayOverviewComponent', () => {
     expect((fixture.nativeElement as HTMLElement).querySelector('.atencao__linha')).toBeTruthy();
   });
 
-  it('avisa que está tudo bem quando não há problemas e desabilita "Ver backends" sem backends', () => {
+  it('avisa que está tudo bem quando não há problemas', () => {
     const fixture = criar([{ id: 1, nome: 'A', ativo: true, contextPath: '/a' }]);
     const el = fixture.nativeElement as HTMLElement;
 
     expect(el.querySelector('.ok')?.textContent).toContain('Nenhum gateway ativo');
-    expect(el.querySelector('.vazio')).toBeTruthy();
-    expect((el.querySelector('.cartao__topo button') as HTMLButtonElement).disabled).toBe(true);
   });
 
-  it('emite o gateway ao clicar em "requer atenção" e o evento de ver backends', () => {
+  it('emite o gateway ao clicar em "requer atenção"', () => {
     const fixture = criar(GATEWAYS);
     const el = fixture.nativeElement as HTMLElement;
     const abertos: number[] = [];
-    let verBackends = 0;
     fixture.componentInstance.detalhes.subscribe((g) => abertos.push(g.id));
-    fixture.componentInstance.verBackends.subscribe(() => verBackends++);
 
     (el.querySelector('.atencao__linha') as HTMLButtonElement).click();
-    (el.querySelector('.cartao__topo button') as HTMLButtonElement).click();
 
     expect(abertos).toEqual([2]);
-    expect(verBackends).toBe(1);
   });
 
   it('mostra no máximo 5 gateways em atenção e informa quantos ficaram de fora', () => {

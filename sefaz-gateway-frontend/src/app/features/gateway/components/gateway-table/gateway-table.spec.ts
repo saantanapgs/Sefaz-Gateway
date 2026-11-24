@@ -37,7 +37,7 @@ describe('GatewayTableComponent', () => {
     const { cabecalhos, abrirVisao, el } = criar();
 
     abrirVisao(1);
-    expect(cabecalhos()).toEqual(['Gateway', 'Host', 'IP', 'URL externa', 'URL interna', 'Métricas', 'Ações']);
+    expect(cabecalhos()).toEqual(['Gateway', 'Host / IP', 'URL externa', 'URL interna', 'Métricas', 'Ações']);
     expect(el.textContent).toContain('10.0.0.1');
     expect(el.textContent).toContain('https://ext.local');
 
